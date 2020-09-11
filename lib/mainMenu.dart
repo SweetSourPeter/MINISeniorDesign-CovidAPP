@@ -1,4 +1,6 @@
 import 'package:covidapp/pages/contants/contant.dart';
+import 'package:covidapp/widgets/country.dart';
+import 'package:covidapp/widgets/global.dart';
 import 'package:covidapp/widgets/myButton.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
@@ -13,13 +15,16 @@ class MainMenu extends StatefulWidget {
 class _MainMenuState extends State<MainMenu>
     with SingleTickerProviderStateMixin {
   bool isCollapsed = true;
+  bool isCollapsedAnimate = true;
   double screenWidth, screenHeight;
   final Duration duration = const Duration(milliseconds: 300);
   AnimationController _controller;
   Animation<double> _scaleAnimation;
   Animation<double> _menuScaleAnimation;
   Animation<Offset> _slideAnimation;
-
+  int initialPage = 1;
+  List<String> pageTitle = ['Global Cases', 'Your Country', 'User Report'];
+  List<Widget> pages = [Global(), Country(), Country()];
   @override
   void initState() {
     super.initState();
@@ -143,9 +148,18 @@ class _MainMenuState extends State<MainMenu>
     );
   }
 
+  void setIsCollapsedAnimate() {
+    print('onend called');
+    setState(() {
+      isCollapsedAnimate = isCollapsed;
+    });
+  }
+
   Widget dashboard(context) {
+    print(isCollapsedAnimate);
     return AnimatedPositioned(
       duration: duration,
+      onEnd: setIsCollapsedAnimate,
       top: 0,
       bottom: 0,
       left: isCollapsed ? 0 : 0.6 * screenWidth,
@@ -186,19 +200,36 @@ class _MainMenuState extends State<MainMenu>
                                 _controller.forward();
                               else
                                 _controller.reverse();
-
+                              isCollapsedAnimate = !isCollapsedAnimate;
                               isCollapsed = !isCollapsed;
                             });
                           },
                         ),
-                        Text("Covid App",
+                        Text(pageTitle[initialPage],
                             style:
                                 TextStyle(fontSize: 24, color: Colors.white)),
                         Icon(Icons.camera, color: Colors.white),
                       ],
                     ),
-                    SizedBox(height: 40),
-                    MovieCarousel(),
+                    SizedBox(height: 20),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: kDefaultPadding),
+                      child: AspectRatio(
+                        aspectRatio: isCollapsedAnimate ? 0.75 : 0.4,
+                        child: PageView.builder(
+                          onPageChanged: (value) {
+                            setState(() {
+                              initialPage = value;
+                              print('page changes $initialPage');
+                            });
+                          },
+                          // controller: _pageController,
+                          physics: ClampingScrollPhysics(),
+                          itemCount: 3, // 2 covid senarials
+                          itemBuilder: (context, index) => pages[index],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -206,91 +237,6 @@ class _MainMenuState extends State<MainMenu>
           ),
         ),
       ),
-    );
-  }
-}
-
-class MovieCarousel extends StatefulWidget {
-  @override
-  _MovieCarouselState createState() => _MovieCarouselState();
-}
-
-class _MovieCarouselState extends State<MovieCarousel> {
-  PageController _pageController;
-  int initialPage = 1;
-
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController(
-      // so that we can have small portion shown on left and right side
-      viewportFraction: 0.8,
-      // by default our movie poster
-      initialPage: initialPage,
-    );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _pageController.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: kDefaultPadding),
-      child: AspectRatio(
-        aspectRatio: 0.80,
-        child: PageView.builder(
-          onPageChanged: (value) {
-            setState(() {
-              initialPage = value;
-            });
-          },
-          controller: _pageController,
-          physics: ClampingScrollPhysics(),
-          itemCount: 2, // 2 covid senarials
-          itemBuilder: (context, index) => buildMovieSlider(index),
-        ),
-      ),
-    );
-  }
-
-  Widget buildMovieSlider(int index) => AnimatedBuilder(
-        animation: _pageController,
-        builder: (context, child) {
-          double value = 0;
-          if (_pageController.position.haveDimensions) {
-            value = index - _pageController.page;
-            // We use 0.038 because 180*0.038 = 7 almost and we need to rotate our poster 7 degree
-            // we use clamp so that our value vary from -1 to 1
-            value = (value * 0.038).clamp(-1, 1);
-          }
-          return AnimatedOpacity(
-            duration: Duration(milliseconds: 350),
-            opacity: initialPage == index ? 1 : 0.4,
-            child: Transform.rotate(
-              angle: math.pi * value,
-              child: CovidCards(),
-            ),
-          );
-        },
-      );
-}
-
-class CovidCards extends StatefulWidget {
-  CovidCards({Key key}) : super(key: key);
-
-  @override
-  _CovidCardsState createState() => _CovidCardsState();
-}
-
-class _CovidCardsState extends State<CovidCards> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: whiteAndGray,
     );
   }
 }
