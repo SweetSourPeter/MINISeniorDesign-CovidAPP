@@ -1,6 +1,9 @@
+import 'package:covidapp/pages/contants/contant.dart';
+import 'package:covidapp/widgets/myButton.dart';
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
-final Color backgroundColor = Color(0xFF4A4A58);
+final Color backgroundColor = lightBlack;
 
 class MainMenu extends StatefulWidget {
   @override
@@ -83,7 +86,7 @@ class _MainMenuState extends State<MainMenu>
                           ),
                           Text(
                             'Peter Wang',
-                            style: TextStyle(color: Colors.black45),
+                            style: TextStyle(color: whiteAndGray),
                           ),
                           SizedBox(
                             height: 10,
@@ -157,12 +160,10 @@ class _MainMenuState extends State<MainMenu>
           child: GestureDetector(
             onTap: () {
               setState(() {
-                if (isCollapsed)
-                  _controller.forward();
-                else
+                if (!isCollapsed) {
                   _controller.reverse();
-
-                isCollapsed = !isCollapsed;
+                  isCollapsed = !isCollapsed;
+                }
               });
             },
             child: SingleChildScrollView(
@@ -196,50 +197,8 @@ class _MainMenuState extends State<MainMenu>
                         Icon(Icons.camera, color: Colors.white),
                       ],
                     ),
-                    SizedBox(height: 50),
-                    Container(
-                      height: 200,
-                      child: PageView(
-                        controller: PageController(viewportFraction: 0.8),
-                        scrollDirection: Axis.horizontal,
-                        pageSnapping: true,
-                        children: <Widget>[
-                          Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 8),
-                            color: Colors.redAccent,
-                            width: 100,
-                          ),
-                          Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 8),
-                            color: Colors.blueAccent,
-                            width: 100,
-                          ),
-                          Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 8),
-                            color: Colors.greenAccent,
-                            width: 100,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      "Transactions",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                    ListView.separated(
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text("Macbook"),
-                            subtitle: Text("Apple"),
-                            trailing: Text("-2900"),
-                          );
-                        },
-                        separatorBuilder: (context, index) {
-                          return Divider(height: 16);
-                        },
-                        itemCount: 10)
+                    SizedBox(height: 40),
+                    MovieCarousel(),
                   ],
                 ),
               ),
@@ -251,40 +210,87 @@ class _MainMenuState extends State<MainMenu>
   }
 }
 
-class MyButton extends StatelessWidget {
-  final String text;
-  final IconData iconData;
-  final double textSize;
-  final double height;
-  final GestureTapCallback onTap;
+class MovieCarousel extends StatefulWidget {
+  @override
+  _MovieCarouselState createState() => _MovieCarouselState();
+}
 
-  MyButton({this.text, this.iconData, this.textSize, this.height, this.onTap});
+class _MovieCarouselState extends State<MovieCarousel> {
+  PageController _pageController;
+  int initialPage = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(
+      // so that we can have small portion shown on left and right side
+      viewportFraction: 0.8,
+      // by default our movie poster
+      initialPage: initialPage,
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _pageController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return MaterialButton(
-      height: height,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          Icon(
-            iconData,
-            color: Colors.black45,
-          ),
-          SizedBox(
-            width: 10,
-          ),
-          Text(
-            text,
-            style: TextStyle(color: Colors.black45, fontSize: textSize),
-          ),
-        ],
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: kDefaultPadding),
+      child: AspectRatio(
+        aspectRatio: 0.80,
+        child: PageView.builder(
+          onPageChanged: (value) {
+            setState(() {
+              initialPage = value;
+            });
+          },
+          controller: _pageController,
+          physics: ClampingScrollPhysics(),
+          itemCount: 2, // 2 covid senarials
+          itemBuilder: (context, index) => buildMovieSlider(index),
+        ),
       ),
-      onPressed: () {
-        onTap();
-      },
+    );
+  }
+
+  Widget buildMovieSlider(int index) => AnimatedBuilder(
+        animation: _pageController,
+        builder: (context, child) {
+          double value = 0;
+          if (_pageController.position.haveDimensions) {
+            value = index - _pageController.page;
+            // We use 0.038 because 180*0.038 = 7 almost and we need to rotate our poster 7 degree
+            // we use clamp so that our value vary from -1 to 1
+            value = (value * 0.038).clamp(-1, 1);
+          }
+          return AnimatedOpacity(
+            duration: Duration(milliseconds: 350),
+            opacity: initialPage == index ? 1 : 0.4,
+            child: Transform.rotate(
+              angle: math.pi * value,
+              child: CovidCards(),
+            ),
+          );
+        },
+      );
+}
+
+class CovidCards extends StatefulWidget {
+  CovidCards({Key key}) : super(key: key);
+
+  @override
+  _CovidCardsState createState() => _CovidCardsState();
+}
+
+class _CovidCardsState extends State<CovidCards> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: whiteAndGray,
     );
   }
 }
