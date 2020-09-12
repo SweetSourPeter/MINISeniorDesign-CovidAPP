@@ -51,74 +51,85 @@ class CountryStatistics extends StatelessWidget {
     return Card(
       elevation: 1,
       child: Container(
+        color: whiteAndGray,
         height: 100,
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        // padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  leftTitle,
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    leftTitle,
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: Container(),
-                ),
-                Text(
-                  "Total",
-                  style: TextStyle(
-                    color: leftColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
+                  Expanded(
+                    child: Container(),
                   ),
-                ),
-                Text(
-                  leftValue.toString().replaceAllMapped(reg, mathFunc),
-                  style: TextStyle(
-                    color: leftColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 28,
+                  Text(
+                    "Total",
+                    style: TextStyle(
+                      color: leftColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
                   ),
-                ),
-              ],
+                  Expanded(
+                    child: Text(
+                      leftValue.toString().replaceAllMapped(reg, mathFunc),
+                      style: TextStyle(
+                        color: leftColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 28,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                Text(
-                  rightTitle,
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  Text(
+                    rightTitle,
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: Container(),
-                ),
-                Text(
-                  "Total",
-                  style: TextStyle(
-                    color: rightColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
+                  Expanded(
+                    child: Container(),
                   ),
-                ),
-                Text(
-                  rightValue.toString().replaceAllMapped(reg, mathFunc),
-                  style: TextStyle(
-                    color: rightColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 28,
+                  Text(
+                    "Total",
+                    style: TextStyle(
+                      color: rightColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
                   ),
-                ),
-              ],
+                  Expanded(
+                    child: Text(
+                      rightValue.toString().replaceAllMapped(reg, mathFunc),
+                      style: TextStyle(
+                        color: rightColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 28,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -131,7 +142,7 @@ class CountryStatistics extends StatelessWidget {
       elevation: 1,
       child: Container(
         height: 190,
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         child: Chart(
           _createData(summaryList),
           animate: false,
