@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:covidapp/models/countrySummary.dart';
 import 'package:covidapp/models/timeSeries.dart';
 import 'package:covidapp/pages/contants/contant.dart';
@@ -82,15 +83,14 @@ class CountryStatistics extends StatelessWidget {
                       fontSize: 12,
                     ),
                   ),
-                  Expanded(
-                    child: Text(
-                      leftValue.toString().replaceAllMapped(reg, mathFunc),
-                      style: TextStyle(
-                        color: leftColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 28,
-                      ),
+                  AutoSizeText(
+                    leftValue.toString().replaceAllMapped(reg, mathFunc),
+                    style: TextStyle(
+                      color: leftColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 28,
                     ),
+                    maxLines: 1,
                   ),
                 ],
               ),
@@ -118,15 +118,14 @@ class CountryStatistics extends StatelessWidget {
                       fontSize: 12,
                     ),
                   ),
-                  Expanded(
-                    child: Text(
-                      rightValue.toString().replaceAllMapped(reg, mathFunc),
-                      style: TextStyle(
-                        color: rightColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 28,
-                      ),
+                  AutoSizeText(
+                    rightValue.toString().replaceAllMapped(reg, mathFunc),
+                    style: TextStyle(
+                      color: rightColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 28,
                     ),
+                    maxLines: 1,
                   ),
                 ],
               ),

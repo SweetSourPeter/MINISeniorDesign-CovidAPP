@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:covidapp/models/globalSummary.dart';
 import 'package:covidapp/pages/contants/contant.dart';
 import 'package:flutter/material.dart';
@@ -76,13 +77,14 @@ class GlobalStatistics extends StatelessWidget {
                           fontSize: 12,
                         ),
                       ),
-                      Text(
+                      AutoSizeText(
                         totalCount.toString().replaceAllMapped(reg, mathFunc),
                         style: TextStyle(
                           color: color,
                           fontWeight: FontWeight.bold,
                           fontSize: 28,
                         ),
+                        maxLines: 1,
                       ),
                     ],
                   ),
@@ -99,13 +101,14 @@ class GlobalStatistics extends StatelessWidget {
                           fontSize: 12,
                         ),
                       ),
-                      Text(
+                      AutoSizeText(
                         todayCount.toString().replaceAllMapped(reg, mathFunc),
                         style: TextStyle(
                           color: color,
                           fontWeight: FontWeight.bold,
                           fontSize: 28,
                         ),
+                        maxLines: 1,
                       ),
                     ],
                   ),
