@@ -50,9 +50,16 @@ class CountryStatistics extends StatelessWidget {
   Widget buildCard(String leftTitle, int leftValue, Color leftColor,
       String rightTitle, int rightValue, Color rightColor) {
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
       elevation: 1,
       child: Container(
-        color: whiteAndGray,
+        decoration: BoxDecoration(
+          color: whiteAndGray,
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+
         height: 100,
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         // padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
@@ -138,6 +145,9 @@ class CountryStatistics extends StatelessWidget {
 
   Widget buildCardChart(List<CountrySummaryModel> summaryList) {
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
       elevation: 1,
       child: Container(
         height: 190,

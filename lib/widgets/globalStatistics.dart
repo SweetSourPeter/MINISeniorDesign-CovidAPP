@@ -45,6 +45,9 @@ class GlobalStatistics extends StatelessWidget {
 
   Widget buildCard(String title, int totalCount, int todayCount, Color color) {
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
       elevation: 1,
       child: Container(
         height: 100,

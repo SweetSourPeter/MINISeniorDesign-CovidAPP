@@ -220,45 +220,43 @@ class _MainMenuState extends State<MainMenu>
                   ],
                 ),
                 SliverToBoxAdapter(
-                  child: Container(
-                    padding:
-                        const EdgeInsets.only(left: 16, right: 16, top: 10),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //   mainAxisSize: MainAxisSize.max,
-                          //   children: [
-                          //     Text(pageTitle[initialPage],
-                          //         style: TextStyle(
-                          //             fontSize: 24, color: Colors.white)),
-                          //     Icon(Icons.camera, color: Colors.white),
-                          //   ],
-                          // ),
-                          SizedBox(height: 20),
-                          Padding(
-                            padding:
-                                EdgeInsets.symmetric(vertical: kDefaultPadding),
-                            child: AspectRatio(
-                              aspectRatio: isCollapsedAnimate ? 0.75 : 0.4,
-                              child: PageView.builder(
-                                onPageChanged: (value) {
-                                  setState(() {
-                                    initialPage = value;
-                                    print('page changes $initialPage');
-                                  });
-                                },
-                                // controller: _pageController,
-                                physics: ClampingScrollPhysics(),
-                                itemCount: 3, // 2 covid senarials
-                                itemBuilder: (context, index) => pages[index],
-                              ),
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.only(
+                        left: 16, right: 16, top: 10, bottom: 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //   mainAxisSize: MainAxisSize.max,
+                        //   children: [
+                        //     Text(pageTitle[initialPage],
+                        //         style: TextStyle(
+                        //             fontSize: 24, color: Colors.white)),
+                        //     Icon(Icons.camera, color: Colors.white),
+                        //   ],
+                        // ),
+                        SizedBox(height: 20),
+                        Padding(
+                          padding:
+                              EdgeInsets.symmetric(vertical: kDefaultPadding),
+                          child: AspectRatio(
+                            aspectRatio: isCollapsedAnimate ? 0.75 : 0.4,
+                            child: PageView.builder(
+                              onPageChanged: (value) {
+                                setState(() {
+                                  initialPage = value;
+                                  print('page changes $initialPage');
+                                });
+                              },
+                              // controller: _pageController,
+                              physics: ClampingScrollPhysics(),
+                              itemCount: 3, // 2 covid senarials
+                              itemBuilder: (context, index) => pages[index],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

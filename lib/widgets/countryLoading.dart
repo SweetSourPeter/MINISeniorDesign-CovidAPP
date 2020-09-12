@@ -10,6 +10,7 @@ class CountryLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
+        // loadingInputCard(),
         loadingCard(),
         loadingCard(),
         loadingChartCard(),
@@ -19,6 +20,9 @@ class CountryLoading extends StatelessWidget {
 
   Widget loadingCard() {
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
       elevation: 1,
       child: Container(
         height: 100,
@@ -58,6 +62,9 @@ class CountryLoading extends StatelessWidget {
 
   Widget loadingInputCard() {
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
       elevation: 1,
       child: Container(
         height: 105,
@@ -77,6 +84,9 @@ class CountryLoading extends StatelessWidget {
 
   Widget loadingChartCard() {
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
       elevation: 1,
       child: Container(
         height: 180,
