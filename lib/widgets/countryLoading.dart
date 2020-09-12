@@ -10,27 +10,6 @@ class CountryLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        // inputTextLoading ? loadingInputCard() : Container(),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 4, vertical: 6),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                "Global Corona Virus Cases",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
-              ),
-              Icon(
-                Icons.refresh,
-                color: Colors.white,
-              ),
-            ],
-          ),
-        ),
         loadingCard(),
         loadingCard(),
         loadingChartCard(),

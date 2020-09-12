@@ -2,6 +2,7 @@ import 'package:covidapp/pages/contants/contant.dart';
 import 'package:covidapp/widgets/country.dart';
 import 'package:covidapp/widgets/global.dart';
 import 'package:covidapp/widgets/myButton.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
@@ -180,59 +181,88 @@ class _MainMenuState extends State<MainMenu>
                 }
               });
             },
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              physics: ClampingScrollPhysics(),
-              child: Container(
-                padding: const EdgeInsets.only(left: 16, right: 16, top: 48),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        InkWell(
-                          child: Icon(Icons.menu, color: Colors.white),
-                          onTap: () {
-                            setState(() {
-                              if (isCollapsed)
-                                _controller.forward();
-                              else
-                                _controller.reverse();
-                              isCollapsedAnimate = !isCollapsedAnimate;
-                              isCollapsed = !isCollapsed;
-                            });
-                          },
-                        ),
-                        Text(pageTitle[initialPage],
-                            style:
-                                TextStyle(fontSize: 24, color: Colors.white)),
-                        Icon(Icons.camera, color: Colors.white),
-                      ],
-                    ),
-                    SizedBox(height: 20),
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: kDefaultPadding),
-                      child: AspectRatio(
-                        aspectRatio: isCollapsedAnimate ? 0.75 : 0.4,
-                        child: PageView.builder(
-                          onPageChanged: (value) {
-                            setState(() {
-                              initialPage = value;
-                              print('page changes $initialPage');
-                            });
-                          },
-                          // controller: _pageController,
-                          physics: ClampingScrollPhysics(),
-                          itemCount: 3, // 2 covid senarials
-                          itemBuilder: (context, index) => pages[index],
-                        ),
-                      ),
-                    ),
+            child: CustomScrollView(
+              slivers: <Widget>[
+                SliverAppBar(
+                  backgroundColor: Colors.transparent,
+                  elevation: 0.0,
+                  floating: true,
+                  centerTitle: true,
+                  title: Text(pageTitle[initialPage],
+                      style: TextStyle(fontSize: 22, color: Colors.white)),
+                  leading: IconButton(
+                    iconSize: 30,
+                    color: whiteAndGray,
+                    padding: EdgeInsets.only(left: kDefaultPadding),
+                    icon: Icon(Icons.menu),
+                    onPressed: () {
+                      //TODO
+                      setState(() {
+                        if (isCollapsed)
+                          _controller.forward();
+                        else
+                          _controller.reverse();
+                        isCollapsedAnimate = !isCollapsedAnimate;
+                        isCollapsed = !isCollapsed;
+                      });
+                    },
+                  ),
+                  actions: <Widget>[
+                    IconButton(
+                        iconSize: 30,
+                        color: whiteAndGray,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                        icon: Icon(Icons.camera),
+                        onPressed: () {
+                          //TODO
+                        })
                   ],
                 ),
-              ),
+                SliverToBoxAdapter(
+                  child: Container(
+                    padding:
+                        const EdgeInsets.only(left: 16, right: 16, top: 10),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   mainAxisSize: MainAxisSize.max,
+                          //   children: [
+                          //     Text(pageTitle[initialPage],
+                          //         style: TextStyle(
+                          //             fontSize: 24, color: Colors.white)),
+                          //     Icon(Icons.camera, color: Colors.white),
+                          //   ],
+                          // ),
+                          SizedBox(height: 20),
+                          Padding(
+                            padding:
+                                EdgeInsets.symmetric(vertical: kDefaultPadding),
+                            child: AspectRatio(
+                              aspectRatio: isCollapsedAnimate ? 0.75 : 0.4,
+                              child: PageView.builder(
+                                onPageChanged: (value) {
+                                  setState(() {
+                                    initialPage = value;
+                                    print('page changes $initialPage');
+                                  });
+                                },
+                                // controller: _pageController,
+                                physics: ClampingScrollPhysics(),
+                                itemCount: 3, // 2 covid senarials
+                                itemBuilder: (context, index) => pages[index],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
