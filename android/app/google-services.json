@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "766603495525",
+    "firebase_url": "https://miniseniordesign-covidapp.firebaseio.com",
+    "project_id": "miniseniordesign-covidapp",
+    "storage_bucket": "miniseniordesign-covidapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:766603495525:android:3a8ecd0cf895bf01e51e8c",
+        "android_client_info": {
+          "package_name": "com.example.covidapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "766603495525-b85co048sb1kb479sgcva5rvvdab3soe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3MjlUvXvSGdy027jc_KE_L82mMQWSxkY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "766603495525-b85co048sb1kb479sgcva5rvvdab3soe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
