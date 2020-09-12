@@ -1,4 +1,5 @@
 import 'package:covidapp/mainMenu.dart';
+import 'package:covidapp/service/wrapper.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: MainMenu(),
+      home: Wrapper(),
     );
   }
 }

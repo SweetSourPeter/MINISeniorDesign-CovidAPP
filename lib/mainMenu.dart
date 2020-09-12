@@ -1,4 +1,5 @@
 import 'package:covidapp/pages/contants/contant.dart';
+import 'package:covidapp/pages/studentPage/covidTestReg.dart';
 import 'package:covidapp/widgets/country.dart';
 import 'package:covidapp/widgets/global.dart';
 import 'package:covidapp/widgets/myButton.dart';
@@ -117,6 +118,14 @@ class _MainMenuState extends State<MainMenu>
                           height: (screenHeight) / 10,
                         ),
                         MyButton(
+                          onTap: () {
+                            print('navigate to test reg');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => covidTestReg()),
+                            );
+                          },
                           text: "Registry for Covid Test",
                           iconData: Icons.local_hospital,
                           textSize: 16,
