@@ -67,7 +67,7 @@ class _LoginState extends State<Login> {
                             textInputDecoration.copyWith(hintText: 'Password'),
                         obscureText: true,
                         validator: (val) =>
-                            val.length < 6 ? 'Enter a Longer Password' : null,
+                            val.length < 4 ? 'Enter a Longer Password!' : null,
                         onChanged: (val) {
                           setState(() {
                             password = val;
