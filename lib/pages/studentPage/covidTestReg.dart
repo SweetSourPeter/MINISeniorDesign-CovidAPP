@@ -1,9 +1,6 @@
-import 'package:covidapp/models/userCovidTestInfo.dart';
 import 'package:covidapp/pages/contants/contant.dart';
 import 'package:covidapp/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:covidapp/providers/userTestProvider.dart';
 
 class covidTestReg extends StatefulWidget {
   @override
