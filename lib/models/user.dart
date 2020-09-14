@@ -1,7 +1,8 @@
 class User {
   final String uid;
+  final bool admin;
 
-  User({this.uid});
+  User({this.uid, this.admin});
 }
 
 class UserData {
