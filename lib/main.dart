@@ -1,3 +1,4 @@
+
 import 'package:covidapp/mainMenu.dart';
 import 'package:covidapp/service/wrapper.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: Wrapper(),
+ PeterBranch
+      // home: Wrapper()
+      home: Scaffold(),
     );
   }
 }
