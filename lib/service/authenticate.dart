@@ -1,5 +1,5 @@
-import 'package:covidapp/widgets/login.dart';
-import 'package:covidapp/widgets/register.dart';
+import 'package:covidapp/pages/loginPage/login.dart';
+import 'package:covidapp/pages/loginPage/register.dart';
 import 'package:flutter/material.dart';
 
 class Authenticate extends StatefulWidget {

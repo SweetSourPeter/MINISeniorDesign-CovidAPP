@@ -1,16 +1,16 @@
-import 'package:covidapp/service/authenticate_service.dart';
 import 'package:flutter/material.dart';
+import 'package:covidapp/service/authenticate_service.dart';
 import 'package:covidapp/service/textDecoration.dart';
-import 'loading.dart';
+import '../../widgets/loading.dart';
 
-class Login extends StatefulWidget {
+class Register extends StatefulWidget {
   final Function toggleAuthenticateMode;
-  Login({this.toggleAuthenticateMode});
+  Register({this.toggleAuthenticateMode});
   @override
-  _LoginState createState() => _LoginState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _LoginState extends State<Login> {
+class _RegisterState extends State<Register> {
   final AuthenticateService _authservice = AuthenticateService();
   final _formKey = GlobalKey<FormState>();
   bool isLoading = false;
@@ -27,13 +27,13 @@ class _LoginState extends State<Login> {
             appBar: AppBar(
               backgroundColor: Colors.blue[400],
               elevation: 0.0,
-              title: Text('Login to Covidappv2'),
+              title: Text('Register to Covidappv2'),
               actions: <Widget>[
                 FlatButton.icon(
                   icon: Icon(Icons.person),
-                  label: Text('Register'),
+                  label: Text('Sign In'),
                   onPressed: () {
-                    // switch from login page to register page
+                    // switch page
                     widget.toggleAuthenticateMode();
                   },
                 )
@@ -65,9 +65,9 @@ class _LoginState extends State<Login> {
                       TextFormField(
                         decoration:
                             textInputDecoration.copyWith(hintText: 'Password'),
-                        obscureText: true,
                         validator: (val) =>
                             val.length < 6 ? 'Enter a Longer Password' : null,
+                        obscureText: true,
                         onChanged: (val) {
                           setState(() {
                             password = val;
@@ -78,7 +78,7 @@ class _LoginState extends State<Login> {
                       RaisedButton(
                         color: Colors.pink[400],
                         child: Text(
-                          'Sign In',
+                          'Sign Up',
                           style: TextStyle(color: Colors.white),
                         ),
                         onPressed: () async {
@@ -87,10 +87,10 @@ class _LoginState extends State<Login> {
                               isLoading = true;
                             });
                             dynamic result =
-                                await _authservice.login(email, password);
+                                await _authservice.register(email, password);
                             if (result == null) {
                               setState(() {
-                                error = 'Incorrect Email or Password';
+                                error = 'Please Supply a Valid Email';
                                 isLoading = false;
                               });
                             }
