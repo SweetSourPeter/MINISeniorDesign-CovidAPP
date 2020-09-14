@@ -1,3 +1,4 @@
+import 'package:covidapp/service/user_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:covidapp/models/user.dart';
 
@@ -10,17 +11,6 @@ class AuthenticateService {
   Stream<User> get user {
     return _auth.onAuthStateChanged.map(_createUser);
   }
-
-  // Future signInAnon() async {
-  //   try {
-  //     AuthResult result = await _auth.signInAnonymously();
-  //     FirebaseUser user = result.user;
-  //     return _createUser(user);
-  //   } catch (e) {
-  //     print(e.toString());
-  //     return null;
-  //   }
-  // }
 
   Future login(String email, String password) async {
     try {
@@ -39,6 +29,8 @@ class AuthenticateService {
       AuthResult result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       FirebaseUser user = result.user;
+      await DatabaseService(uid: user.uid)
+          .updateUserData('Hanming', 'Hanming\'s email', true);
       return _createUser(user);
     } catch (e) {
       print(e.toString());
