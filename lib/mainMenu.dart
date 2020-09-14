@@ -1,11 +1,17 @@
+import 'package:covidapp/models/user.dart';
 import 'package:covidapp/pages/contants/contant.dart';
 import 'package:covidapp/pages/studentPage/covidTestReg.dart';
+import 'package:covidapp/service/authenticate.dart';
+import 'package:covidapp/service/authenticate_service.dart';
+import 'package:covidapp/service/wrapper.dart';
 import 'package:covidapp/widgets/country.dart';
 import 'package:covidapp/widgets/global.dart';
 import 'package:covidapp/widgets/myButton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
+
+import 'package:provider/provider.dart';
 
 final Color backgroundColor = lightBlack;
 
@@ -16,6 +22,7 @@ class MainMenu extends StatefulWidget {
 
 class _MainMenuState extends State<MainMenu>
     with SingleTickerProviderStateMixin {
+  AuthenticateService authenticateService = new AuthenticateService();
   bool isCollapsed = true;
   bool isCollapsedAnimate = true;
   double screenWidth, screenHeight;
@@ -62,6 +69,7 @@ class _MainMenuState extends State<MainMenu>
   }
 
   Widget menu(context) {
+    final user = Provider.of<User>(context);
     return SlideTransition(
       position: _slideAnimation,
       child: ScaleTransition(
@@ -92,7 +100,7 @@ class _MainMenuState extends State<MainMenu>
                             height: 5,
                           ),
                           Text(
-                            'Peter Wang',
+                            user.uid ?? '',
                             style: TextStyle(color: whiteAndGray),
                           ),
                           SizedBox(
@@ -139,7 +147,13 @@ class _MainMenuState extends State<MainMenu>
                         ),
                         MyButton(
                           onTap: () {
-                            //TODO
+                            authenticateService.signOut().then((value) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Wrapper()),
+                              );
+                            });
                           },
                           text: "Log Out",
                           iconData: Icons.offline_bolt,
