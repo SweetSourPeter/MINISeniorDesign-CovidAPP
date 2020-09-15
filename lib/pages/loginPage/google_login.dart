@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:covidapp/service/auth.dart';
 
-// this file is for google login (user view) only
+// this file is USELESS
 
 class LoginButton extends StatelessWidget {
   @override
