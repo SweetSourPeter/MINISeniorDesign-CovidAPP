@@ -1,6 +1,7 @@
 import 'package:covidapp/models/user.dart';
 import 'package:covidapp/models/userCovidTestInfo.dart';
 import 'package:covidapp/service/database.dart';
+import 'package:covidapp/widgets/qrCodeDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
@@ -65,7 +66,7 @@ class CovidTestProvider with ChangeNotifier {
   }
 
   //save this covid test into firestore for both user and covid test collection
-  saveNewcovidTest(BuildContext context) {
+  saveNewcovidTest(BuildContext context) async {
     final user = Provider.of<User>(context, listen: false);
     // final userdata = Provider.of<UserData>(context, listen: false);
     // String covidTestId = user.school.toUpperCase() +
@@ -76,26 +77,32 @@ class CovidTestProvider with ChangeNotifier {
     //     currentTemprature.toUpperCase() +
     //     userID.toUpperCase();
     //save to Users Document
-    String covidTestId = uuid.v4();
-    var newcovidTestToUser = CovidTestInfo(
-      appointmentTime: appointmentTime,
-      covidTestID: covidTestId,
-    );
-    databaseMehods.savecovidTestToUser(newcovidTestToUser, user.uid);
+    // String covidTestId = uuid.v4();
+    // var newcovidTestToUser = CovidTestInfo(
+    //   appointmentTime: appointmentTime,
+    //   covidTestID: covidTestId,
+    // );
+    // databaseMehods.savecovidTestToUser(newcovidTestToUser, user.uid);
     //save to covidTests Document
     var newcovidTestTocovidTest = CovidTestInfo(
-      school: school.toUpperCase(),
+      school: school,
       appointmentTime: appointmentTime,
       submitionTime: submitionTime,
-      symptoms: symptoms.toUpperCase(),
-      currentTemprature: currentTemprature.toUpperCase(),
-      userID: userID.toUpperCase(),
+      symptoms: symptoms,
+      currentTemprature: currentTemprature,
+      userID: user.uid,
       covidTestID: covidTestId,
     );
+    databaseMehods.savecovidTestToUser(newcovidTestTocovidTest, user.uid);
     databaseMehods.savecovidTestToCovidTest(newcovidTestTocovidTest);
     // var newUser = User(userID: userId, admin: true);
     //TODO
     // databaseMehods.addUserTocovidTest(covidTestId, user);
+    return await showDialog(
+        context: context,
+        builder: (_) => QRImageDialog(
+              qr_link: '11111',
+            ));
   }
 
 //   removecovidTest(BuildContext context, String covidTestID) {

@@ -8,6 +8,7 @@ import 'package:covidapp/service/wrapper.dart';
 import 'package:covidapp/widgets/country.dart';
 import 'package:covidapp/widgets/global.dart';
 import 'package:covidapp/widgets/myButton.dart';
+import 'package:covidapp/widgets/qrCodeDialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;

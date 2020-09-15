@@ -1,9 +1,12 @@
 import 'package:covidapp/pages/contants/contant.dart';
 import 'package:covidapp/providers/userTestProvider.dart';
+import 'package:covidapp/widgets/qrCodeDialog.dart';
 import 'package:covidapp/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_health/flutter_health.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 class CovidTestReg extends StatefulWidget {
   @override
@@ -17,6 +20,45 @@ TextEditingController temperatureTextEditingController =
     new TextEditingController();
 
 class _CovidTestRegState extends State<CovidTestReg> {
+  //health KIT
+  var _healthKitOutput;
+  var _hkDataList = List<HKHealthData>();
+  var _gfDataList = List<GFHealthData>();
+  var str = "";
+  bool _isAuthorized = true;
+
+  @override
+  void initState() {
+    super.initState();
+    initPlatformState();
+  }
+
+  Future<void> initPlatformState() async {
+    /*Future.delayed(Duration(seconds: 2), () async {
+      _healthKitOutput = await FlutterHealth.checkIfHealthDataAvailable();
+      setState(() {});
+    });*/
+    DateTime startDate = DateTime.utc(2020, 09, 15);
+    DateTime endDate = DateTime.now();
+    Future.delayed(Duration(seconds: 2), () async {
+      _isAuthorized = await FlutterHealth.requestAuthorization();
+      if (_isAuthorized)
+        _gfDataList
+            .addAll(await FlutterHealth.getGFAllData(startDate, endDate));
+      setState(() {});
+
+      if (_isAuthorized)
+        _hkDataList.addAll(
+            await FlutterHealth.getHKBodyTemperature(startDate, endDate));
+      setState(() {});
+    });
+    if (!mounted) return;
+    print('temprature is ');
+    print(_hkDataList);
+  }
+
+  var uuid = Uuid(); // create a unique ID for this new covid test
+
   var currentSelectedValueSymptom;
   var currentSelectedValueSchool;
   bool timeSelected = false;
@@ -92,10 +134,11 @@ class _CovidTestRegState extends State<CovidTestReg> {
                   ),
                   'Select Symptom',
                   20,
-                  0,
+                  7,
                 ),
                 // hint: Text("Select Term"),
                 value: currentSelectedValueSymptom,
+                isExpanded: true,
                 isDense: true,
                 onChanged: (newValue) {
                   setState(() {
@@ -118,6 +161,7 @@ class _CovidTestRegState extends State<CovidTestReg> {
                 height: 15,
               ),
               DropdownButtonFormField<String>(
+                isExpanded: true,
                 decoration: buildInputDecorationPinky(
                   true,
                   Icon(
@@ -126,7 +170,7 @@ class _CovidTestRegState extends State<CovidTestReg> {
                   ),
                   'Select School',
                   20,
-                  1,
+                  7,
                 ),
                 // hint: Text("Select Term"),
                 value: currentSelectedValueSchool,
@@ -165,10 +209,10 @@ class _CovidTestRegState extends State<CovidTestReg> {
                   20,
                 ),
                 onChanged: (newValue) {
-                  setState(() {
-                    currentSelectedValueSchool = newValue;
-                  });
-                  print(currentSelectedValueSchool);
+                  // setState(() {
+                  //   temperatureTextEditingController.text = newValue;
+                  // });
+                  print(newValue);
                   covidTestProvider.changecovidTemp(newValue);
                 },
                 // InputDecoration(
@@ -219,10 +263,19 @@ class _CovidTestRegState extends State<CovidTestReg> {
                 ),
                 color: whiteAndGray,
                 child: Text('Save'),
-                onPressed: () {
+                onPressed: () async {
                   //TODO create class in database
+                  String covidTestId = uuid.v4();
+                  covidTestProvider.changecovidTestID(covidTestId);
                   if (formKey.currentState.validate()) {
                     covidTestProvider.saveNewcovidTest(context);
+
+                    await showDialog(
+                        context: context,
+                        builder: (_) => QRImageDialog(
+                              qr_link: '11111',
+                            ));
+
                     Navigator.pop(context);
                   }
                 },

@@ -19,7 +19,13 @@ class CovidTestInfo {
 
   Map<String, dynamic> toMapIntoUsers() {
     return {
+      'school': school,
+      'submitionTime': submitionTime,
+      'college': appointmentTime,
+      'symptoms': symptoms,
       'currentTemprature': currentTemprature,
+      'userID': userID,
+      'covidTestID': covidTestID,
     };
   }
 
