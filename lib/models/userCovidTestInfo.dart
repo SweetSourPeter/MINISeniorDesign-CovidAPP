@@ -21,7 +21,7 @@ class CovidTestInfo {
     return {
       'school': school,
       'submitionTime': submitionTime,
-      'college': appointmentTime,
+      'appointmentTime': appointmentTime,
       'symptoms': symptoms,
       'currentTemprature': currentTemprature,
       'userID': userID,
@@ -34,7 +34,7 @@ class CovidTestInfo {
     return {
       'school': school,
       'submitionTime': submitionTime,
-      'college': appointmentTime,
+      'appointmentTime': appointmentTime,
       'symptoms': symptoms,
       'currentTemprature': currentTemprature,
       'userID': userID,
@@ -45,7 +45,7 @@ class CovidTestInfo {
   CovidTestInfo.fromFirestore(Map<String, dynamic> firestore)
       : school = firestore['school'],
         submitionTime = firestore['submitionTime'],
-        appointmentTime = firestore['college'],
+        appointmentTime = firestore['appointmentTime'],
         symptoms = firestore['symptoms'],
         currentTemprature = firestore['currentTemprature'],
         userID = firestore['userID'],
