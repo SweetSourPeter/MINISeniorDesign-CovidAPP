@@ -2,6 +2,7 @@ import 'package:covidapp/service/authenticate_service.dart';
 import 'package:covidapp/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:covidapp/service/textDecoration.dart';
+import 'package:covidapp/service/auth.dart';
 
 class Login extends StatefulWidget {
   final Function toggleAuthenticateMode;
@@ -105,13 +106,13 @@ class _LoginState extends State<Login> {
                         style: TextStyle(color: Colors.red, fontSize: 14.0),
                       ),
                       MaterialButton(
-                        color: Colors.yellow[200],
+                        color: Colors.yellow[300],
                         child: Text(
-                          'Google User',
+                          'Google Sign In',
                           style: TextStyle(color: Colors.blue),
                         ),
                         onPressed: () {
-                          //need to go to google login page
+                          authService.googleSignIn();
                         },
                       )
                     ],
