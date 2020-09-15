@@ -1,6 +1,7 @@
 import 'package:covidapp/models/user.dart';
 import 'package:covidapp/pages/contants/contant.dart';
 import 'package:covidapp/pages/studentPage/covidTestReg.dart';
+import 'package:covidapp/pages/studentPage/dailyReport.dart';
 import 'package:covidapp/providers/userTestProvider.dart';
 import 'package:covidapp/service/authenticate.dart';
 import 'package:covidapp/service/authenticate_service.dart';
@@ -124,6 +125,20 @@ class _MainMenuState extends State<MainMenu>
                     child: Column(
                       children: <Widget>[
                         MyButton(
+                          onTap: () {
+                            print('navigate to Daily Report');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      MultiProvider(providers: [
+                                        ChangeNotifierProvider<
+                                            CovidTestProvider>.value(
+                                          value: covidTestInfo,
+                                        ),
+                                      ], child: UserDailyReport())),
+                            );
+                          },
                           text: "Daily Covid Report",
                           iconData: Icons.report,
                           textSize: 16,

@@ -67,4 +67,64 @@ class DatabaseMehods {
         .snapshots()
         .map((snapshot) => UserData.fromFirestore(snapshot.data, userID));
   }
+
+  Future<void> saveUserDailyReport2Reports(
+      String userID,
+      DateTime submitTime,
+      String school,
+      String feeling,
+      String location,
+      String temprature,
+      String reportID) {
+    print('save Daily Reports to user');
+    //First update in the user level
+    return Firestore.instance
+        .collection('dailyReport')
+        .document(submitTime.year.toString() +
+            submitTime.month.toString() +
+            submitTime.day.toString())
+        .collection('userDailyReports')
+        .document(reportID)
+        .setData({
+      'userID': userID,
+      'submitTime': submitTime,
+      'school': school,
+      'feeling': feeling,
+      'location': location,
+      'temprature': temprature,
+      'reportID': reportID,
+    }).catchError((e) {
+      print(e.toString());
+    });
+    //also update in the covidTest level
+  }
+
+  Future<void> saveUserDailyReport2User(
+      String userID,
+      DateTime submitTime,
+      String school,
+      String feeling,
+      String location,
+      String temprature,
+      String reportID) {
+    print('save Daily Reports to user');
+    //First update in the user level
+    return Firestore.instance
+        .collection('users')
+        .document(userID)
+        .collection('userDailyReports')
+        .document(reportID)
+        .setData({
+      'userID': userID,
+      'submitTime': submitTime,
+      'school': school,
+      'feeling': feeling,
+      'location': location,
+      'temprature': temprature,
+      'reportID': reportID,
+    }).catchError((e) {
+      print(e.toString());
+    });
+    //also update in the covidTest level
+  }
 }
