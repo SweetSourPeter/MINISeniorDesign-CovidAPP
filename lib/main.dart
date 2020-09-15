@@ -1,4 +1,6 @@
 import 'package:covidapp/mainMenu.dart';
+import 'package:covidapp/models/userCovidTestInfo.dart';
+import 'package:covidapp/providers/userTestProvider.dart';
 import 'package:covidapp/service/authenticate.dart';
 import 'package:covidapp/service/authenticate_service.dart';
 import 'package:covidapp/service/wrapper.dart';
@@ -18,6 +20,8 @@ class MyApp extends StatelessWidget {
       providers: [
         StreamProvider(
             create: (context) => AuthenticateService().user), //Login user
+        ChangeNotifierProvider(
+            create: (context) => CovidTestProvider()), //course Provider
       ],
       child: MaterialApp(
         title: 'Covid Demo',

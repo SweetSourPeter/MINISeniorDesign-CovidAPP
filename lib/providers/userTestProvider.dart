@@ -1,6 +1,8 @@
+import 'package:covidapp/models/user.dart';
 import 'package:covidapp/models/userCovidTestInfo.dart';
 import 'package:covidapp/service/database.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 class CovidTestProvider with ChangeNotifier {
@@ -32,17 +34,17 @@ class CovidTestProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  changecovidTestSchool(DateTime value) {
+  changecovidTestSubmitionTime(DateTime value) {
     _submitionTime = value;
     notifyListeners();
   }
 
-  changecovidTestCollege(DateTime value) {
+  changecovidTestAppointmentTime(DateTime value) {
     _appointmentTime = value;
     notifyListeners();
   }
 
-  changecovidTestName(String value) {
+  changecovidTemp(String value) {
     _currentTemprature = value;
     notifyListeners();
   }
@@ -52,7 +54,7 @@ class CovidTestProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  changesymptoms(String value) {
+  changeSymptoms(String value) {
     _symptoms = value;
     notifyListeners();
   }
@@ -64,9 +66,8 @@ class CovidTestProvider with ChangeNotifier {
 
   //save this covid test into firestore for both user and covid test collection
   saveNewcovidTest(BuildContext context) {
-    // final user = Provider.of<User>(context, listen: false);
+    final user = Provider.of<User>(context, listen: false);
     // final userdata = Provider.of<UserData>(context, listen: false);
-    String userId = '11111';
     // String covidTestId = user.school.toUpperCase() +
     //     '_' +
     //     school.toUpperCase() +
@@ -80,7 +81,7 @@ class CovidTestProvider with ChangeNotifier {
       appointmentTime: appointmentTime,
       covidTestID: covidTestId,
     );
-    databaseMehods.savecovidTestToUser(newcovidTestToUser, userId);
+    databaseMehods.savecovidTestToUser(newcovidTestToUser, user.uid);
     //save to covidTests Document
     var newcovidTestTocovidTest = CovidTestInfo(
       school: school.toUpperCase(),

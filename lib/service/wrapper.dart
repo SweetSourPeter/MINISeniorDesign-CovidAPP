@@ -21,7 +21,14 @@ class Wrapper extends StatelessWidget {
     if (user == null) {
       return Authenticate();
     } else {
-      return MainMenu();
+      return MultiProvider(providers: [
+        StreamProvider(
+            create: (context) => DatabaseMehods()
+                .userDetails(user.uid)), //Login user data details
+        StreamProvider(
+            create: (context) => DatabaseMehods()
+                .getMyCovidTest(user.uid)), //Login user data details
+      ], child: MainMenu());
     }
   }
 }

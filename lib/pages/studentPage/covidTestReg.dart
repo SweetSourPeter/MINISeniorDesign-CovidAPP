@@ -1,42 +1,43 @@
-
 import 'package:covidapp/pages/contants/contant.dart';
-import 'package:covidapp/widgets/widgets.dart';
-import 'package:flutter/material.dart';
-import 'package:covidapp/models/userCovidTestInfo.dart';
-import 'package:covidapp/pages/contants/contant.dart';
-import 'package:covidapp/widgets/widgets.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:covidapp/providers/userTestProvider.dart';
+import 'package:covidapp/widgets/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:provider/provider.dart';
 
-class covidTestReg extends StatefulWidget {
+class CovidTestReg extends StatefulWidget {
   @override
-  _covidTestRegState createState() => _covidTestRegState();
+  _CovidTestRegState createState() => _CovidTestRegState();
 }
 
 final formKey = GlobalKey<FormState>();
 
-TextEditingController collegeTextEditingController =
-    new TextEditingController();
-TextEditingController departmentTextEditingController =
-    new TextEditingController();
-TextEditingController courseNameTextEditingController =
-    new TextEditingController();
-TextEditingController sectionTextEditingController =
+TextEditingController schoolTextEditingController = new TextEditingController();
+TextEditingController temperatureTextEditingController =
     new TextEditingController();
 
-class _covidTestRegState extends State<covidTestReg> {
-  var currentSelectedValue;
+class _CovidTestRegState extends State<CovidTestReg> {
+  var currentSelectedValueSymptom;
+  var currentSelectedValueSchool;
+  bool timeSelected = false;
   List<String> feeling = [
+    'I just need this test for attending school',
     "I feel physical normal",
     "I feel tired",
-    "I am haveing a fever",
+    "I am having a fever",
+    'This is emergency!!!',
+  ];
+  List<String> schools = [
+    "Boston University",
+    "Harvard University",
+    "Massachusetts Institute of Technology",
+    'University of Massachusetts',
   ];
 
   @override
   Widget build(BuildContext context) {
     //provider of the course
-    // final covidTestInfo = Provider.of<CovidTestProvider>(context);
+    final covidTestProvider = Provider.of<CovidTestProvider>(context);
     return Scaffold(
       appBar: AppBar(
         leading: Container(
@@ -89,21 +90,22 @@ class _covidTestRegState extends State<covidTestReg> {
                     Icons.access_time,
                     color: Colors.black,
                   ),
-                  'Select symptom',
+                  'Select Symptom',
                   20,
+                  0,
                 ),
                 // hint: Text("Select Term"),
-                value: currentSelectedValue,
+                value: currentSelectedValueSymptom,
                 isDense: true,
                 onChanged: (newValue) {
                   setState(() {
-                    currentSelectedValue = newValue;
+                    currentSelectedValueSymptom = newValue;
                   });
-                  print(currentSelectedValue);
-                  // covidTestInfo.changesymptoms(currentSelectedValue);
+                  print(currentSelectedValueSymptom);
+                  covidTestProvider.changeSymptoms(newValue);
                 },
                 validator: (String val) {
-                  return (val == null) ? "Please select the term" : null;
+                  return (val == null) ? "Please select the symptom" : null;
                 },
                 items: feeling.map((String value) {
                   return DropdownMenuItem<String>(
@@ -115,123 +117,102 @@ class _covidTestRegState extends State<covidTestReg> {
               SizedBox(
                 height: 15,
               ),
-              TextFormField(
-                // onChanged: (value) => covidTestInfo.changeCourseCollege(value),
-                controller: collegeTextEditingController,
+              DropdownButtonFormField<String>(
                 decoration: buildInputDecorationPinky(
-                  false,
+                  true,
                   Icon(
-                    Icons.access_time,
+                    Icons.school,
                     color: Colors.black,
                   ),
-                  'College, ex:CAS',
+                  'Select School',
                   20,
+                  1,
                 ),
-                // InputDecoration(hintText: 'College, ex:CAS'),
-                validator: (val) {
-                  return val.length > 1
-                      ? null
-                      : "Please Enter a correct College";
+                // hint: Text("Select Term"),
+                value: currentSelectedValueSchool,
+                isDense: true,
+                onChanged: (newValue) {
+                  setState(() {
+                    currentSelectedValueSchool = newValue;
+                  });
+                  print(currentSelectedValueSchool);
+                  covidTestProvider.changeschool(newValue);
                 },
+                validator: (String val) {
+                  return (val == null) ? "Please select the school" : null;
+                },
+                items: schools.map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value.toUpperCase(),
+                    child: Text(value),
+                  );
+                }).toList(),
               ),
               SizedBox(
                 height: 15,
               ),
-              //Department
+              //temprature
               TextFormField(
-                // onChanged: (value) =>
-                // covidTestInfo.changeCourseDepartment(value),
-                controller: departmentTextEditingController,
+                controller: temperatureTextEditingController,
                 decoration: buildInputDecorationPinky(
                   false,
                   Icon(
-                    Icons.access_time,
+                    Icons.timelapse,
                     color: Colors.black,
                   ),
-                  'Department, ex:CS',
+                  'Current Temprature °C',
+                  20,
                   20,
                 ),
+                onChanged: (newValue) {
+                  setState(() {
+                    currentSelectedValueSchool = newValue;
+                  });
+                  print(currentSelectedValueSchool);
+                  covidTestProvider.changecovidTemp(newValue);
+                },
                 // InputDecoration(
                 //   hintText: 'Department, ex:CS',
                 // ),
                 validator: (val) {
                   return val.length > 1
                       ? null
-                      : "Please Enter a correct Department";
+                      : "Please Enter a correct temprature";
                 },
               ),
               SizedBox(
                 height: 15,
               ),
+              FlatButton(
+                  onPressed: () {
+                    DatePicker.showDatePicker(context,
+                        showTitleActions: true,
+                        minTime: DateTime.now(),
+                        maxTime: DateTime(2021, 6, 7), onChanged: (date) {
+                      print('change $date');
+                    }, onConfirm: (date) {
+                      setState(() {
+                        timeSelected = true;
+                      });
+                      covidTestProvider.changecovidTestAppointmentTime(date);
+                      covidTestProvider
+                          .changecovidTestSubmitionTime(DateTime.now());
+                      print('confirm $date');
+                    }, currentTime: DateTime.now(), locale: LocaleType.en);
+                  },
+                  child: Text(
+                    !timeSelected
+                        ? 'pick avilable Appointment time'
+                        : 'time picked',
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: timeSelected ? Colors.blue : Colors.red),
+                  )),
               //Course Name
-              TextFormField(
-                // onChanged: (value) => covidTestInfo.changeCourseName(value),
-                controller: courseNameTextEditingController,
-                decoration: buildInputDecorationPinky(
-                  false,
-                  Icon(
-                    Icons.access_time,
-                    color: Colors.black,
-                  ),
-                  'CourseName, ex:CS111',
-                  20,
-                ),
-                // InputDecoration(hintText: 'CourseName, ex:CS111'),
-                validator: (val) {
-                  return val.length > 3
-                      ? null
-                      : "Please Enter a correct Course Name";
-                },
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              //Section
-              TextFormField(
-                // onChanged: (value) => covidTestInfo.changeCourseSection(value),
-                controller: sectionTextEditingController,
-                decoration: buildInputDecorationPinky(
-                  false,
-                  Icon(
-                    Icons.access_time,
-                    color: Colors.black,
-                  ),
-                  'Section, ex:A1',
-                  20,
-                ),
-                // InputDecoration(hintText: 'Section, ex:A1'),
-                validator: (val) {
-                  return val.length > 1
-                      ? null
-                      : "Please Enter a correct Section";
-                },
-              ),
+
               SizedBox(
                 height: 40,
               ),
-              // RaisedGradientButton(
-              //   width: 100,
-              //   height: 40,
-              //   gradient: LinearGradient(
-              //     colors: <Color>[Colors.red, orengeColor],
-              //   ),
-              //   onPressed: () {
-              //     //TODO create class in database
-              //     if (formKey.currentState.validate()) {
-              //       CovidTestProvider.saveNewCourse(context);
-              //       Navigator.pop(context);
-              //     }
-              //   },
-              //   //之后需要根据friendsProvider改这部分display
-              //   //TODO
-              //   child: Text(
-              //     'Create',
-              //     style: TextStyle(
-              //       fontSize: 14,
-              //       color: Colors.white,
-              //     ),
-              //   ),
-              // ),
               RaisedButton(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
@@ -241,7 +222,7 @@ class _covidTestRegState extends State<covidTestReg> {
                 onPressed: () {
                   //TODO create class in database
                   if (formKey.currentState.validate()) {
-                    // covidTestInfo.saveNewcovidTest(context);
+                    covidTestProvider.saveNewcovidTest(context);
                     Navigator.pop(context);
                   }
                 },

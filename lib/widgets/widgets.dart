@@ -1,8 +1,8 @@
 import 'package:covidapp/pages/contants/contant.dart';
 import 'package:flutter/material.dart';
 
-InputDecoration buildInputDecorationPinky(
-    bool isIcon, Icon prefixIcon, String hintText, double boarderRadius) {
+InputDecoration buildInputDecorationPinky(bool isIcon, Icon prefixIcon,
+    String hintText, double boarderRadius, double edgeInsect) {
   return InputDecoration(
     prefixIcon: isIcon ? prefixIcon : null,
     fillColor: whiteAndGray,
@@ -20,7 +20,9 @@ InputDecoration buildInputDecorationPinky(
       // borderSide: BorderSide.none
     ),
 
-    contentPadding: EdgeInsets.all(10),
+    contentPadding: EdgeInsets.all(
+      edgeInsect,
+    ),
     hintStyle: TextStyle(color: Colors.grey), // KEY PROP
   );
 }

@@ -1,6 +1,7 @@
 import 'package:covidapp/models/user.dart';
 import 'package:covidapp/pages/contants/contant.dart';
 import 'package:covidapp/pages/studentPage/covidTestReg.dart';
+import 'package:covidapp/providers/userTestProvider.dart';
 import 'package:covidapp/service/authenticate.dart';
 import 'package:covidapp/service/authenticate_service.dart';
 import 'package:covidapp/service/wrapper.dart';
@@ -69,7 +70,9 @@ class _MainMenuState extends State<MainMenu>
   }
 
   Widget menu(context) {
-    final user = Provider.of<User>(context);
+    // final user = Provider.of<User>(context);
+    final covidTestInfo = Provider.of<CovidTestProvider>(context);
+    final userdata = Provider.of<UserData>(context);
     return SlideTransition(
       position: _slideAnimation,
       child: ScaleTransition(
@@ -100,7 +103,7 @@ class _MainMenuState extends State<MainMenu>
                             height: 5,
                           ),
                           Text(
-                            user.uid ?? '',
+                            userdata == null ? '' : userdata.email,
                             style: TextStyle(color: whiteAndGray),
                           ),
                           SizedBox(
@@ -131,7 +134,13 @@ class _MainMenuState extends State<MainMenu>
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => covidTestReg()),
+                                  builder: (context) =>
+                                      MultiProvider(providers: [
+                                        ChangeNotifierProvider<
+                                            CovidTestProvider>.value(
+                                          value: covidTestInfo,
+                                        ),
+                                      ], child: CovidTestReg())),
                             );
                           },
                           text: "Registry for Covid Test",

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:covidapp/models/user.dart';
 import 'package:covidapp/models/userCovidTestInfo.dart';
 
 class DatabaseMehods {
@@ -56,5 +57,14 @@ class DatabaseMehods {
         .map((snapshot) => snapshot.documents
             .map((document) => CovidTestInfo.fromFirestore(document.data))
             .toList());
+  }
+
+  Stream<UserData> userDetails(String userID) {
+    print('called userdetails stream');
+    return Firestore.instance
+        .collection('users')
+        .document(userID)
+        .snapshots()
+        .map((snapshot) => UserData.fromFirestore(snapshot.data, userID));
   }
 }
