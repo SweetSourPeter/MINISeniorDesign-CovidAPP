@@ -104,6 +104,16 @@ class _LoginState extends State<Login> {
                         error,
                         style: TextStyle(color: Colors.red, fontSize: 14.0),
                       ),
+                      MaterialButton(
+                        color: Colors.yellow[200],
+                        child: Text(
+                          'Google User',
+                          style: TextStyle(color: Colors.blue),
+                        ),
+                        onPressed: () {
+                          //need to go to google login page
+                        },
+                      )
                     ],
                   ),
                 )),
