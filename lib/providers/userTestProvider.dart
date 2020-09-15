@@ -91,18 +91,13 @@ class CovidTestProvider with ChangeNotifier {
       symptoms: symptoms,
       currentTemprature: currentTemprature,
       userID: user.uid,
-      covidTestID: covidTestId,
+      covidTestID: covidTestID,
     );
     databaseMehods.savecovidTestToUser(newcovidTestTocovidTest, user.uid);
     databaseMehods.savecovidTestToCovidTest(newcovidTestTocovidTest);
     // var newUser = User(userID: userId, admin: true);
     //TODO
     // databaseMehods.addUserTocovidTest(covidTestId, user);
-    return await showDialog(
-        context: context,
-        builder: (_) => QRImageDialog(
-              qr_link: '11111',
-            ));
   }
 
 //   removecovidTest(BuildContext context, String covidTestID) {

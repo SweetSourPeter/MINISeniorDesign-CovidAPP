@@ -267,15 +267,13 @@ class _CovidTestRegState extends State<CovidTestReg> {
                   //TODO create class in database
                   String covidTestId = uuid.v4();
                   covidTestProvider.changecovidTestID(covidTestId);
-                  if (formKey.currentState.validate()) {
+                  if (formKey.currentState.validate() && timeSelected) {
                     covidTestProvider.saveNewcovidTest(context);
-
                     await showDialog(
                         context: context,
                         builder: (_) => QRImageDialog(
-                              qr_link: '11111',
+                              qr_link: covidTestId,
                             ));
-
                     Navigator.pop(context);
                   }
                 },
