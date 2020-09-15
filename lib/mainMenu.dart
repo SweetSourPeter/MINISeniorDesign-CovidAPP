@@ -1,3 +1,4 @@
+import 'package:barcode_scan/barcode_scan.dart';
 import 'package:covidapp/models/user.dart';
 import 'package:covidapp/pages/contants/contant.dart';
 import 'package:covidapp/pages/studentPage/covidTestReg.dart';
@@ -54,6 +55,25 @@ class _MainMenuState extends State<MainMenu>
     super.dispose();
   }
 
+  ScanResult qrResult;
+  Future<void> _scan() async {
+    setState(() async {
+      qrResult = await BarcodeScanner.scan(
+        options: ScanOptions(
+          useCamera: camera,
+        ),
+      );
+    });
+    // ScanResult
+  }
+
+  int camera = 1;
+  // Future<void> qrcodeScanner() async {
+  //   setState(() async {
+  //     qrResult = await BarcodeScanner.scan();
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -73,6 +93,7 @@ class _MainMenuState extends State<MainMenu>
 
   Widget menu(context) {
     // final user = Provider.of<User>(context);
+
     final covidTestInfo = Provider.of<CovidTestProvider>(context);
     final userdata = Provider.of<UserData>(context);
     return SlideTransition(
@@ -263,7 +284,10 @@ class _MainMenuState extends State<MainMenu>
                             EdgeInsets.symmetric(horizontal: kDefaultPadding),
                         icon: Icon(Icons.camera),
                         onPressed: () {
+                          print('cam called');
                           //TODO
+                          _scan();
+                          print(qrResult); // The barcode content
                         })
                   ],
                 ),
