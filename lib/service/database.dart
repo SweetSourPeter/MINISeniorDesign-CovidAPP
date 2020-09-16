@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:covidapp/models/user.dart';
 import 'package:covidapp/models/userCovidTestInfo.dart';
+import 'package:covidapp/pages/studentPage/dailyReport.dart';
 
 class DatabaseMehods {
   Future<void> savecovidTestToUser(CovidTestInfo covidTest, String userID) {
@@ -61,6 +62,15 @@ class DatabaseMehods {
 
   Stream<UserData> userDetails(String userID) {
     print('called userdetails stream');
+    return Firestore.instance
+        .collection('users')
+        .document(userID)
+        .snapshots()
+        .map((snapshot) => UserData.fromFirestore(snapshot.data, userID));
+  }
+
+  Stream<void> getUuserDailyReport(String userID) {
+    print('called user daily reports stream');
     return Firestore.instance
         .collection('users')
         .document(userID)

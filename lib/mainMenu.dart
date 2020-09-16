@@ -226,6 +226,7 @@ class _MainMenuState extends State<MainMenu>
   }
 
   Widget dashboard(context) {
+    final userdata = Provider.of<UserData>(context);
     print(isCollapsedAnimate);
     return AnimatedPositioned(
       duration: duration,
@@ -277,18 +278,20 @@ class _MainMenuState extends State<MainMenu>
                     },
                   ),
                   actions: <Widget>[
-                    IconButton(
-                        iconSize: 30,
-                        color: whiteAndGray,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                        icon: Icon(Icons.camera),
-                        onPressed: () {
-                          print('cam called');
-                          //TODO
-                          _scan();
-                          print(qrResult); // The barcode content
-                        })
+                    userdata.admin
+                        ? IconButton(
+                            iconSize: 30,
+                            color: whiteAndGray,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: kDefaultPadding),
+                            icon: Icon(Icons.camera),
+                            onPressed: () {
+                              print('cam called');
+                              //TODO
+                              _scan();
+                              print(qrResult); // The barcode content
+                            })
+                        : Container(),
                   ],
                 ),
                 SliverToBoxAdapter(
