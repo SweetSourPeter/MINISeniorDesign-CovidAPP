@@ -1,6 +1,6 @@
 # COVID-App
 
-COVID-App is a tiny cross-platform mobile app developed using [Flutter](https://github.com/flutter/flutter) to report and track your daily symptoms (or your status if you are not ill) in order to slow the spread of [COVID-19(click to view COVID-19 from CDC)](https://www.cdc.gov/coronavirus/2019-ncov/index.html). It also provides an Admin-Dashboard to monitor symptoms.
+COVID-App is a tiny cross-platform mobile app developed using [Flutter](https://github.com/flutter/flutter) to report and track your daily symptoms (or your status if you are not ill) in order to slow the spread of [COVID-19 (click to view COVID-19 from CDC)](https://www.cdc.gov/coronavirus/2019-ncov/index.html). It also provides an Admin-Dashboard to monitor symptoms.
 
 And here's why you might want to use it:
 
