@@ -88,6 +88,8 @@ We support totally 3 major sign-in methods including by pure email/password or b
 * You can sign-in with your Facebook account **in the future**! Ta dah!
 [Subscribe us](https://www.na-cc.com/) if you want to login with your Facebook account!
 
+![Facebook](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/fac.png)
+
 * You can definitely sign in with your Google account:
 
 ![Google Sign-in](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/gog.gif)
