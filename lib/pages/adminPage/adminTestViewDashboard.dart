@@ -123,7 +123,7 @@ Widget buildCard(
                     AutoSizeText(
                       'Temprature : ' + currentTemprature + '°C',
                       style: TextStyle(
-                        color: int.parse(currentTemprature) < 37.2
+                        color: double.parse(currentTemprature) < 37.2
                             ? Colors.black54
                             : Colors.red,
                         fontWeight: FontWeight.bold,
@@ -227,7 +227,7 @@ Widget buildCard(
                       Text(
                         "Temprature:  ",
                         style: TextStyle(
-                          color: int.parse(currentTemprature) < 37.2
+                          color: double.parse(currentTemprature) < 37.2
                               ? Colors.black54
                               : Colors.red,
                           fontWeight: FontWeight.bold,
@@ -253,7 +253,7 @@ Widget buildCard(
                       AutoSizeText(
                         appointmentTime.toDate().toIso8601String(),
                         style: TextStyle(
-                          color: int.parse(currentTemprature) < 37.2
+                          color: double.parse(currentTemprature) < 37.2
                               ? Colors.black54
                               : Colors.red,
                           fontWeight: FontWeight.bold,
@@ -264,7 +264,7 @@ Widget buildCard(
                       AutoSizeText(
                         currentTemprature + '°C',
                         style: TextStyle(
-                          color: int.parse(currentTemprature) < 37.2
+                          color: double.parse(currentTemprature) < 37.2
                               ? Colors.black54
                               : Colors.red,
                           fontWeight: FontWeight.bold,
