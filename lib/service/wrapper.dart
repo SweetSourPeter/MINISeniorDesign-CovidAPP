@@ -28,6 +28,9 @@ class Wrapper extends StatelessWidget {
         StreamProvider(
             create: (context) => DatabaseMehods()
                 .getMyCovidTest(user.uid)), //Login user data details
+        StreamProvider(
+            create: (context) => DatabaseMehods()
+                .getUserDailyReport(user.uid)), //get user reports detais
       ], child: MainMenu());
     }
   }

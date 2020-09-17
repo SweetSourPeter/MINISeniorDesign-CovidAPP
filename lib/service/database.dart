@@ -69,15 +69,6 @@ class DatabaseMehods {
         .map((snapshot) => UserData.fromFirestore(snapshot.data, userID));
   }
 
-  Stream<void> getUuserDailyReport(String userID) {
-    print('called user daily reports stream');
-    return Firestore.instance
-        .collection('users')
-        .document(userID)
-        .snapshots()
-        .map((snapshot) => UserData.fromFirestore(snapshot.data, userID));
-  }
-
   Future<void> saveUserDailyReport2Reports(
       String userID,
       DateTime submitTime,
@@ -136,5 +127,31 @@ class DatabaseMehods {
       print(e.toString());
     });
     //also update in the covidTest level
+  }
+
+  Stream<List<Map<String, dynamic>>> getUserDailyReport(String userID) {
+    print('called user daily reports stream');
+    return Firestore.instance
+        .collection('users')
+        .document(userID)
+        .collection('userDailyReports')
+        .snapshots()
+        .map((snapshot) =>
+            snapshot.documents.map((document) => document.data).toList());
+  }
+
+  Stream<List<Map<String, dynamic>>> getAdminDailyReport(
+      DateTime selectedDate) {
+    String today = selectedDate.year.toString() +
+        selectedDate.month.toString() +
+        selectedDate.day.toString();
+    print('called admin daily reports stream');
+    return Firestore.instance
+        .collection('dailyReport')
+        .document(today)
+        .collection('userDailyReports')
+        .snapshots()
+        .map((snapshot) =>
+            snapshot.documents.map((document) => document.data).toList());
   }
 }
