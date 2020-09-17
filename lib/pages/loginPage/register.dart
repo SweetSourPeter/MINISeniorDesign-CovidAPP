@@ -1,3 +1,4 @@
+import 'package:covidapp/pages/contants/contant.dart';
 import 'package:flutter/material.dart';
 import 'package:covidapp/service/authenticate_service.dart';
 import 'package:covidapp/service/textDecoration.dart';
@@ -23,15 +24,22 @@ class _RegisterState extends State<Register> {
     return isLoading
         ? Loading()
         : Scaffold(
-            backgroundColor: Colors.blue[100],
+            backgroundColor: darkblack,
             appBar: AppBar(
-              backgroundColor: Colors.blue[400],
-              elevation: 0.0,
-              title: Text('Register to Covidappv2'),
+              backgroundColor: lightBlack,
+              elevation: 5.0,
+              centerTitle: true,
+              title: Text('Sign Up'),
               actions: <Widget>[
                 FlatButton.icon(
-                  icon: Icon(Icons.person),
-                  label: Text('Sign In'),
+                  icon: Icon(
+                    Icons.person,
+                    color: whiteAndGray,
+                  ),
+                  label: Text(
+                    'Sign In',
+                    style: TextStyle(color: whiteAndGray),
+                  ),
                   onPressed: () {
                     // switch page
                     widget.toggleAuthenticateMode();

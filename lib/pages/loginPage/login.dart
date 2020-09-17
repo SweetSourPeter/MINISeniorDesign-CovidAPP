@@ -1,8 +1,11 @@
+import 'package:covidapp/pages/contants/contant.dart';
 import 'package:covidapp/service/authenticate_service.dart';
 import 'package:covidapp/widgets/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:covidapp/service/textDecoration.dart';
 import 'package:covidapp/service/auth.dart';
+import 'package:flutter_signin_button/button_view.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class Login extends StatefulWidget {
   final Function toggleAuthenticateMode;
@@ -24,15 +27,25 @@ class _LoginState extends State<Login> {
     return isLoading
         ? Loading()
         : Scaffold(
-            backgroundColor: Colors.blue[100],
+            backgroundColor: darkblack,
             appBar: AppBar(
-              backgroundColor: Colors.blue[400],
-              elevation: 0.0,
-              title: Text('Login to Covidappv2'),
+              backgroundColor: lightBlack,
+              centerTitle: true,
+              elevation: 5.0,
+              title: Text(
+                'Covid App',
+                style: TextStyle(color: whiteAndGray),
+              ),
               actions: <Widget>[
                 FlatButton.icon(
-                  icon: Icon(Icons.person),
-                  label: Text('Register'),
+                  icon: Icon(
+                    Icons.person,
+                    color: whiteAndGray,
+                  ),
+                  label: Text(
+                    'Sign Up',
+                    style: TextStyle(color: whiteAndGray),
+                  ),
                   onPressed: () {
                     // switch from login page to register page
                     widget.toggleAuthenticateMode();
@@ -75,11 +88,17 @@ class _LoginState extends State<Login> {
                           });
                         },
                       ),
-                      SizedBox(height: 20.0),
+                      SizedBox(height: 25.0),
+                      // SignInButton(
+                      //   Buttons.Email,
+                      //   text: "Sign in with Email",
+                      //   onPressed: ()
+                      //   },
+                      // ),
                       RaisedButton(
-                        color: Colors.pink[400],
+                        color: Colors.grey,
                         child: Text(
-                          'Sign In',
+                          'Sign Up',
                           style: TextStyle(color: Colors.white),
                         ),
                         onPressed: () async {
@@ -98,23 +117,29 @@ class _LoginState extends State<Login> {
                           }
                         },
                       ),
-                      SizedBox(
-                        height: 12.0,
+                      SizedBox(height: 45.0),
+                      Text(
+                        error,
+                        style: TextStyle(color: Colors.red, fontSize: 14.0),
+                      ),
+                      SignInButton(
+                        Buttons.Google,
+                        text: "Sign in with Google",
+                        onPressed: () {
+                          authService.googleSignIn();
+                        },
                       ),
                       Text(
                         error,
                         style: TextStyle(color: Colors.red, fontSize: 14.0),
                       ),
-                      MaterialButton(
-                        color: Colors.yellow[300],
-                        child: Text(
-                          'Google Sign In',
-                          style: TextStyle(color: Colors.blue),
-                        ),
+                      SignInButton(
+                        Buttons.Facebook,
+                        text: "Sign in with Facebook",
                         onPressed: () {
                           authService.googleSignIn();
                         },
-                      )
+                      ),
                     ],
                   ),
                 )),

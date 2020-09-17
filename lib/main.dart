@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
             create: (context) => CovidTestProvider()), //course Provider
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Covid Demo',
         // home: Wrapper()
         home: Wrapper(),

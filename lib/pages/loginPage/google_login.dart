@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:covidapp/service/auth.dart';
+import 'package:flutter_signin_button/button_view.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 // this file is USELESS
 
@@ -21,16 +23,24 @@ class LoginButton extends StatelessWidget {
             },
           );
         } else {
-          return MaterialButton(
-            color: Colors.yellow[300],
-            child: Text(
-              'Google Sign In',
-              style: TextStyle(color: Colors.blue),
-            ),
+          return SignInButton(
+            Buttons.Google,
+            text: "Sign in with Google",
             onPressed: () {
               authService.googleSignIn();
             },
           );
+
+          // MaterialButton(
+          //   color: Colors.yellow[300],
+          //   child: Text(
+          //     'Google Sign In',
+          //     style: TextStyle(color: Colors.blue),
+          //   ),
+          //   onPressed: () {
+          //     authService.googleSignIn();
+          //   },
+          // );
         }
       },
     );
