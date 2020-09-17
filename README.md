@@ -81,9 +81,23 @@ We support totally 3 major sign-in methods including by pure email/password or b
 
 ![Sign-in Page](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/login.png)
 
-*Email/Password Sign-in Demo*
+You can sign-in with only an email and a password:
 
 ![Password Sign-in](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/ep.gif)
+
+*Email/Password Sign-in Demo*
+
+You can sign-in with your Facebook account **in the future**! Ta dah!
+[Subscribe us](https://www.na-cc.com/) if you want to login with your Facebook account!
+
+You can definitely sign in with your Google account:
+
+![Google Sign-in](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/gog.gif)
+
+*Google Sign-in Demo*
+
+### User Main Page
+Our main page contains three sub-pages...
 
 ## Authors
 
