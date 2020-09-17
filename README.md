@@ -109,10 +109,11 @@ Besides, students can schedule for a COVID test if they think it's necessary:
 
 ### Admin Dashboard
 We support an admin dashboard to monitor scheduled tests, students status, and more.
-Currently, a user can only be authenticated to be an administrator by changing the user data `bool admin` from our Firebase back-end, that is, all users has a `false` value of `admin` by default. Want to learn Flutter with Firebase? We've found [this tutorial](https://www.youtube.com/watch?v=sfA3NWDBPZ4&list=PL4cUxeGkcC9j--TKIdkb3ISfRbJeJYQwC) on YouTube useful for beginners.
+Currently, a user can only be authenticated to be an administrator by changing the user data `bool admin` from our Firebase back-end, that is, all users has a `false` value of `admin` by default. 
 
+Want to learn Flutter with Firebase? We've found [this tutorial](https://www.youtube.com/watch?v=sfA3NWDBPZ4&list=PL4cUxeGkcC9j--TKIdkb3ISfRbJeJYQwC) on YouTube useful for beginners.
 
-
+![Admin Dashboard](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/amd.gif)
 
 ## Authors
 
