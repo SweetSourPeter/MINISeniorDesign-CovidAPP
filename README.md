@@ -99,9 +99,20 @@ Our main page contains three sub-pages, including a sideway panel, a world-wide 
 
 ![User Main Page](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/mu.gif)
 
-Inside the sideway panel, students can choose to submit a daily symptoms report:
+Clicking the sideway panel, students are then be able to submit a daily symptoms report, and we've made it **very convenient** that a QR square is generated containing the daily report!
 
 ![Daily Report](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/dr.gif)
+
+Besides, students can schedule for a COVID test if they think it's necessary:
+
+![Register Test](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/ct.gif)
+
+### Admin Dashboard
+We support an admin dashboard to monitor scheduled tests, students status, and more.
+Currently, a user can only be authenticated to be an administrator by changing the user data `bool admin` from our Firebase back-end, that is, all users has a `false` value of `admin` by default. Want to learn Flutter with Firebase? We've found [this tutorial](https://www.youtube.com/watch?v=sfA3NWDBPZ4&list=PL4cUxeGkcC9j--TKIdkb3ISfRbJeJYQwC) on YouTube useful for beginners.
+
+
+
 
 ## Authors
 
