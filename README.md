@@ -72,11 +72,16 @@ Widget build(BuildContext context) {
 Inherited widgets deeply down the widget tree can easily use the data inside providers simultaneously with the help of `provider` package. In our case, each page can have access to the authenticate status and show different pages based on if the user is authenticated or not. It also separate a user login and an administrator login.
 
 ## App Functions Demo
+
 In this section, we demonstrate our deliveries via showing the main functions of the app along with images and possibly GIFs for effectiveness purposes.
+
 ### Sign-in Methods
-![Sign-in Page](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/login.png)
 
 We support totally 3 major sign-in methods including by pure email/password or by **SSO** (with Google and Facebook being supported).
+
+![Sign-in Page](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/login.png)
+
+*Email/Password Sign-in Demo*
 
 ![Password Sign-in](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/ep.gif)
 
