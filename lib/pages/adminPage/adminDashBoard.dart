@@ -6,18 +6,19 @@ import 'package:covidapp/service/database.dart';
 import 'package:covidapp/widgets/loading.dart';
 import 'package:covidapp/widgets/qrCodeDialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:provider/provider.dart';
 
-class UserDashboard extends StatefulWidget {
-  UserDashboard({Key key}) : super(key: key);
+class AdminDashboard extends StatefulWidget {
+  AdminDashboard({Key key}) : super(key: key);
 
   @override
-  _UserDashboardState createState() => _UserDashboardState();
+  _AdminDashboardState createState() => _AdminDashboardState();
 }
 
 final databaseMehods = DatabaseMehods();
 
-class _UserDashboardState extends State<UserDashboard> {
+class _AdminDashboardState extends State<AdminDashboard> {
   DateTime selectedDateTime = DateTime.now();
   @override
   Widget build(BuildContext context) {
@@ -27,38 +28,70 @@ class _UserDashboardState extends State<UserDashboard> {
     return Container(
       child: Scaffold(
           backgroundColor: Colors.transparent,
-          body: StreamBuilder(
-            stream: data,
-            builder: (context, snapshot) {
-              print('snapshot data here');
-              print(snapshot.data);
-              if (snapshot.hasError)
-                return Center(
-                  child: Text("Error"),
-                );
-              switch (snapshot.connectionState) {
-                case ConnectionState.waiting:
-                  return Loading();
-                default:
-                  return !snapshot.hasData
-                      ? Center(
-                          child: Text("Empty"),
-                        )
-                      : ListView.builder(
-                          itemCount: snapshot.data.length,
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              title: buildCard(
-                                  context,
-                                  snapshot.data[index]['temprature'],
-                                  snapshot.data[index]['feeling'],
-                                  snapshot.data[index]['submitTime'],
-                                  snapshot.data[index]['reportID']),
-                            );
-                          },
-                        );
-              }
-            },
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                FlatButton(
+                    onPressed: () {
+                      DatePicker.showDatePicker(context,
+                          showTitleActions: true,
+                          minTime: DateTime(2020, 9, 1),
+                          maxTime: DateTime.now(), onChanged: (date) {
+                        print('change $date');
+                      }, onConfirm: (date) {
+                        setState(() {
+                          selectedDateTime = date;
+                        });
+                      }, currentTime: DateTime.now(), locale: LocaleType.en);
+                    },
+                    child: Text(
+                      selectedDateTime.year.toString() +
+                          '/' +
+                          selectedDateTime.month.toString() +
+                          '/' +
+                          selectedDateTime.day.toString(),
+                      style: TextStyle(fontSize: 16, color: Colors.blue),
+                    )),
+                StreamBuilder(
+                  stream: data,
+                  builder: (context, snapshot) {
+                    print('snapshot data here');
+                    print(snapshot.data);
+                    if (snapshot.hasError)
+                      return Center(
+                        child: Text("Error"),
+                      );
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.waiting:
+                        return Loading();
+                      default:
+                        return !snapshot.hasData
+                            ? Center(
+                                child: Text("Empty"),
+                              )
+                            : ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                itemCount: snapshot.data.length,
+                                itemBuilder: (context, index) {
+                                  return ListTile(
+                                    title: buildCard(
+                                        context,
+                                        snapshot.data[index]['temprature'],
+                                        snapshot.data[index]['userID'],
+                                        snapshot.data[index]['submitTime'],
+                                        snapshot.data[index]['reportID']),
+                                  );
+                                },
+                              );
+                    }
+                  },
+                ),
+                SizedBox(
+                  height: 30,
+                )
+              ],
+            ),
           )),
     );
   }
@@ -67,7 +100,7 @@ class _UserDashboardState extends State<UserDashboard> {
 Widget buildCard(
   BuildContext context,
   String temprature,
-  String feeling,
+  String userID,
   Timestamp submittedTime,
   String reportID,
 ) {
@@ -113,7 +146,7 @@ Widget buildCard(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        "Temprature:  ",
+                        "UserID: ",
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -121,9 +154,11 @@ Widget buildCard(
                         ),
                       ),
                       Text(
-                        "Feeling: ",
+                        "Temprature:  ",
                         style: TextStyle(
-                          color: Colors.black,
+                          color: int.parse(temprature) < 37.2
+                              ? Colors.black54
+                              : Colors.red,
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
@@ -136,7 +171,7 @@ Widget buildCard(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       AutoSizeText(
-                        temprature + '°C',
+                        userID.toString(),
                         style: TextStyle(
                           color: Colors.black54,
                           fontWeight: FontWeight.bold,
@@ -145,9 +180,11 @@ Widget buildCard(
                         maxLines: 1,
                       ),
                       AutoSizeText(
-                        feeling.toString(),
+                        temprature + '°C',
                         style: TextStyle(
-                          color: Colors.black54,
+                          color: int.parse(temprature) < 37.2
+                              ? Colors.black54
+                              : Colors.red,
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),

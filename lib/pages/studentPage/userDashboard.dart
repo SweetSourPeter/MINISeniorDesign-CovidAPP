@@ -113,7 +113,9 @@ Widget buildCard(
                       Text(
                         "Temprature:  ",
                         style: TextStyle(
-                          color: Colors.black,
+                          color: int.parse(temprature) < 37.2
+                              ? Colors.black54
+                              : Colors.red,
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
@@ -136,7 +138,9 @@ Widget buildCard(
                       AutoSizeText(
                         temprature + '°C',
                         style: TextStyle(
-                          color: Colors.black54,
+                          color: int.parse(temprature) < 37.2
+                              ? Colors.black54
+                              : Colors.red,
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),

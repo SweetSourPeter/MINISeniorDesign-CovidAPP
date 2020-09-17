@@ -1,5 +1,6 @@
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:covidapp/models/user.dart';
+import 'package:covidapp/pages/adminPage/adminDashBoard.dart';
 import 'package:covidapp/pages/contants/contant.dart';
 import 'package:covidapp/pages/studentPage/covidTestReg.dart';
 import 'package:covidapp/pages/studentPage/dailyReport.dart';
@@ -38,12 +39,26 @@ class _MainMenuState extends State<MainMenu>
   Animation<double> _menuScaleAnimation;
   Animation<Offset> _slideAnimation;
   int initialPage = 1;
-  List<String> pageTitle = [
+  List<String> userPageTitle = [
     'Global Cases',
     'Your Country',
     'Your Daily Report',
   ];
-
+  List<Widget> userPages = [
+    Global(),
+    Country(),
+    UserDashboard(),
+  ];
+  List<String> adminPageTitle = [
+    'Global Cases',
+    'Your Country',
+    'User Report',
+  ];
+  List<Widget> adminPages = [
+    UserDashboard(),
+    Global(),
+    Country(),
+  ];
   @override
   void initState() {
     super.initState();
@@ -82,19 +97,24 @@ class _MainMenuState extends State<MainMenu>
 
   @override
   Widget build(BuildContext context) {
+    final userdata = Provider.of<UserData>(context);
     Size size = MediaQuery.of(context).size;
     screenHeight = size.height;
     screenWidth = size.width;
 
-    return Scaffold(
-      backgroundColor: backgroundColor,
-      body: Stack(
-        children: <Widget>[
-          menu(context),
-          dashboard(context),
-        ],
-      ),
-    );
+    return userdata == null
+        ? Loading()
+        : Scaffold(
+            backgroundColor: backgroundColor,
+            body: Stack(
+              children: <Widget>[
+                menu(context),
+                userdata.admin
+                    ? dashboard(context, adminPageTitle, adminPages)
+                    : dashboard(context, userPageTitle, userPages),
+              ],
+            ),
+          );
   }
 
   Widget menu(context) {
@@ -231,127 +251,123 @@ class _MainMenuState extends State<MainMenu>
     });
   }
 
-  Widget dashboard(context) {
+  Widget dashboard(context, List<String> pageTitle, List<Widget> pages) {
     // final userReports = Provider.of<List<Map<String, dynamic>>>(context);
     final userdata = Provider.of<UserData>(context);
-    List<Widget> pages = [Global(), Country(), UserDashboard()];
+
     print(isCollapsedAnimate);
-    return userdata == null
-        ? Loading()
-        : AnimatedPositioned(
-            duration: duration,
-            onEnd: setIsCollapsedAnimate,
-            top: 0,
-            bottom: 0,
-            left: isCollapsed ? 0 : 0.6 * screenWidth,
-            right: isCollapsed ? 0 : -0.2 * screenWidth,
-            child: ScaleTransition(
-              scale: _scaleAnimation,
-              child: Material(
-                animationDuration: duration,
-                borderRadius: BorderRadius.all(Radius.circular(40)),
-                elevation: 8,
-                color: backgroundColor,
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      if (!isCollapsed) {
-                        _controller.reverse();
+    return AnimatedPositioned(
+      duration: duration,
+      onEnd: setIsCollapsedAnimate,
+      top: 0,
+      bottom: 0,
+      left: isCollapsed ? 0 : 0.6 * screenWidth,
+      right: isCollapsed ? 0 : -0.2 * screenWidth,
+      child: ScaleTransition(
+        scale: _scaleAnimation,
+        child: Material(
+          animationDuration: duration,
+          borderRadius: BorderRadius.all(Radius.circular(40)),
+          elevation: 8,
+          color: backgroundColor,
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                if (!isCollapsed) {
+                  _controller.reverse();
+                  isCollapsed = !isCollapsed;
+                }
+              });
+            },
+            child: CustomScrollView(
+              slivers: <Widget>[
+                SliverAppBar(
+                  backgroundColor: Colors.transparent,
+                  elevation: 0.0,
+                  floating: true,
+                  centerTitle: true,
+                  title: Text(pageTitle[initialPage],
+                      style: TextStyle(fontSize: 22, color: Colors.white)),
+                  leading: IconButton(
+                    iconSize: 30,
+                    color: whiteAndGray,
+                    padding: EdgeInsets.only(left: kDefaultPadding),
+                    icon: Icon(Icons.menu),
+                    onPressed: () {
+                      //TODO
+                      setState(() {
+                        if (isCollapsed)
+                          _controller.forward();
+                        else
+                          _controller.reverse();
+                        isCollapsedAnimate = !isCollapsedAnimate;
                         isCollapsed = !isCollapsed;
-                      }
-                    });
-                  },
-                  child: CustomScrollView(
-                    slivers: <Widget>[
-                      SliverAppBar(
-                        backgroundColor: Colors.transparent,
-                        elevation: 0.0,
-                        floating: true,
-                        centerTitle: true,
-                        title: Text(pageTitle[initialPage],
-                            style:
-                                TextStyle(fontSize: 22, color: Colors.white)),
-                        leading: IconButton(
-                          iconSize: 30,
-                          color: whiteAndGray,
-                          padding: EdgeInsets.only(left: kDefaultPadding),
-                          icon: Icon(Icons.menu),
-                          onPressed: () {
-                            //TODO
-                            setState(() {
-                              if (isCollapsed)
-                                _controller.forward();
-                              else
-                                _controller.reverse();
-                              isCollapsedAnimate = !isCollapsedAnimate;
-                              isCollapsed = !isCollapsed;
-                            });
-                          },
-                        ),
-                        actions: <Widget>[
-                          userdata.admin
-                              ? IconButton(
-                                  iconSize: 30,
-                                  color: whiteAndGray,
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: kDefaultPadding),
-                                  icon: Icon(Icons.camera),
-                                  onPressed: () {
-                                    print('cam called');
-                                    //TODO
-                                    _scan();
-                                    print(qrResult); // The barcode content
-                                  })
-                              : Container(),
-                        ],
-                      ),
-                      SliverToBoxAdapter(
-                        child: SingleChildScrollView(
-                          padding: const EdgeInsets.only(
-                              left: 16, right: 16, top: 10, bottom: 0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              // Row(
-                              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              //   mainAxisSize: MainAxisSize.max,
-                              //   children: [
-                              //     Text(pageTitle[initialPage],
-                              //         style: TextStyle(
-                              //             fontSize: 24, color: Colors.white)),
-                              //     Icon(Icons.camera, color: Colors.white),
-                              //   ],
-                              // ),
-                              SizedBox(height: 20),
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: kDefaultPadding),
-                                child: AspectRatio(
-                                  aspectRatio: isCollapsedAnimate ? 0.75 : 0.4,
-                                  child: PageView.builder(
-                                    onPageChanged: (value) {
-                                      setState(() {
-                                        initialPage = value;
-                                        print('page changes $initialPage');
-                                      });
-                                    },
-                                    // controller: _pageController,
-                                    physics: ClampingScrollPhysics(),
-                                    itemCount: 3, // 2 covid senarials
-                                    itemBuilder: (context, index) =>
-                                        pages[index],
-                                  ),
-                                ),
-                              ),
-                            ],
+                      });
+                    },
+                  ),
+                  actions: <Widget>[
+                    userdata.admin
+                        ? IconButton(
+                            iconSize: 30,
+                            color: whiteAndGray,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: kDefaultPadding),
+                            icon: Icon(Icons.camera),
+                            onPressed: () {
+                              print('cam called');
+                              //TODO
+                              _scan();
+                              print(qrResult); // The barcode content
+                            })
+                        : Container(),
+                  ],
+                ),
+                SliverToBoxAdapter(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.only(
+                        left: 16, right: 16, top: 10, bottom: 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //   mainAxisSize: MainAxisSize.max,
+                        //   children: [
+                        //     Text(pageTitle[initialPage],
+                        //         style: TextStyle(
+                        //             fontSize: 24, color: Colors.white)),
+                        //     Icon(Icons.camera, color: Colors.white),
+                        //   ],
+                        // ),
+                        SizedBox(height: 20),
+                        Padding(
+                          padding:
+                              EdgeInsets.symmetric(vertical: kDefaultPadding),
+                          child: AspectRatio(
+                            aspectRatio: isCollapsedAnimate ? 0.75 : 0.4,
+                            child: PageView.builder(
+                              onPageChanged: (value) {
+                                setState(() {
+                                  initialPage = value;
+                                  print('page changes $initialPage');
+                                });
+                              },
+                              // controller: _pageController,
+                              physics: ClampingScrollPhysics(),
+                              itemCount: 3, // 2 covid senarials
+                              itemBuilder: (context, index) => pages[index],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-          );
+          ),
+        ),
+      ),
+    );
   }
 }
