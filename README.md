@@ -74,9 +74,9 @@ Inherited widgets deeply down the widget tree can easily use the data inside pro
 ## App Functions Demo
 In this section, we demonstrate our deliveries via showing the main functions of the app along with images and possibly GIFs for effectiveness purposes.
 ### Sign-in Methods
-![Sign-in Page](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/structure.png)
+![Sign-in Page](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/login.png)
 We support totally 3 major sign-in methods including by pure email/password or by **SSO** (with Google and Facebook being supported).
-
+![Password Sign-in](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/ep.gif)
 
 ## Authors
 
