@@ -154,4 +154,11 @@ class DatabaseMehods {
         .map((snapshot) =>
             snapshot.documents.map((document) => document.data).toList());
   }
+
+  Stream<List<Map<String, dynamic>>> getCovidTestReg() {
+    print('called admin daily reports stream');
+    return Firestore.instance.collection('covidTests').snapshots().map(
+        (snapshot) =>
+            snapshot.documents.map((document) => document.data).toList());
+  }
 }

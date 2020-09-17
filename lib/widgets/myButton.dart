@@ -14,6 +14,7 @@ class MyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return MaterialButton(
+      elevation: 10,
       height: height,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,

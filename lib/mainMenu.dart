@@ -1,6 +1,7 @@
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:covidapp/models/user.dart';
 import 'package:covidapp/pages/adminPage/adminDashBoard.dart';
+import 'package:covidapp/pages/adminPage/adminTestViewDashboard.dart';
 import 'package:covidapp/pages/contants/contant.dart';
 import 'package:covidapp/pages/studentPage/covidTestReg.dart';
 import 'package:covidapp/pages/studentPage/dailyReport.dart';
@@ -50,12 +51,14 @@ class _MainMenuState extends State<MainMenu>
     UserDashboard(),
   ];
   List<String> adminPageTitle = [
+    'Daily Reports',
+    'Test Registration',
     'Global Cases',
     'Your Country',
-    'User Report',
   ];
   List<Widget> adminPages = [
-    UserDashboard(),
+    AdminDashboard(),
+    AdminTestReviewDashboard(),
     Global(),
     Country(),
   ];
@@ -354,7 +357,7 @@ class _MainMenuState extends State<MainMenu>
                               },
                               // controller: _pageController,
                               physics: ClampingScrollPhysics(),
-                              itemCount: 3, // 2 covid senarials
+                              itemCount: pages.length,
                               itemBuilder: (context, index) => pages[index],
                             ),
                           ),
