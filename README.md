@@ -74,6 +74,6 @@ Inherited widgets deeply down the widget tree can easily use the data inside pro
 
 ## Authors
 
-Made by [@Peter](https://github.com/SweetSourPeter) and [@Hanming](https://github.com/labmem008) powered by :fries:, :hamburger: and :cake:.
+Made by [@Peter](https://github.com/SweetSourPeter) and [@Hanming](https://github.com/labmem008) who are in turn powered by :fries:, :hamburger: and :cake:.
 See our official website [North America Classmate Connect](https://www.na-cc.com/).
 We are open to new members!
