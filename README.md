@@ -113,7 +113,7 @@ Currently, a user can only be authenticated to be an administrator by changing t
 
 Want to learn Flutter with Firebase? We've found [this tutorial](https://www.youtube.com/watch?v=sfA3NWDBPZ4&list=PL4cUxeGkcC9j--TKIdkb3ISfRbJeJYQwC) on YouTube useful for beginners.
 
-![Admin Dashboard](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/amd.gif)
+![Admin Dashboard](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/asd.gif)
 
 ## Authors
 
