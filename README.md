@@ -99,6 +99,10 @@ Our main page contains three sub-pages, including a sideway panel, a world-wide 
 
 ![User Main Page](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/mu.gif)
 
+Inside the sideway panel, students can choose to submit a daily symptoms report:
+
+![Daily Report](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/dr.gif)
+
 ## Authors
 
 Made by [@Peter](https://github.com/SweetSourPeter) and [@Hanming](https://github.com/labmem008) who are in turn powered by :fries:, :hamburger: and :cake:.
