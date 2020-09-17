@@ -1,6 +1,6 @@
 # COVID-App
 
-COVID-App is a tiny cross-platform mobile app developed using [Flutter](https://github.com/flutter/flutter) to report and track your daily symptoms (or your status if you are not ill) in order to slow the spread of COVID-19. It also provides an Admin-Dashboard to monitor symptoms.
+COVID-App is a tiny cross-platform mobile app developed using [Flutter](https://github.com/flutter/flutter) to report and track your daily symptoms (or your status if you are not ill) in order to slow the spread of [COVID-19(click to view COVID-19 from CDC)](https://www.cdc.gov/coronavirus/2019-ncov/index.html). It also provides an Admin-Dashboard to monitor symptoms.
 
 And here's why you might want to use it:
 
@@ -11,6 +11,64 @@ And here's why you might want to use it:
 ## App Structure
 The following picture shows the widget tree.
 ![COVID-App Widget Tree](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/structure.png)
+
+### Folders and Files
+
+All of our files are organized and put into different folders.
+`provider` folder holds all of our flutter providers, which we will discuss later in details.
+`pages` folder includes all the app pages that can are visible to our app users.
+`serives` folder includes our implementation of app back-end services like authentication and COVID-API data support and such.
+
+### Models
+
+In our sub-folder `models`, we create several classes to store our special data types, for example, in `user.dart`:
+
+```dart
+class User {
+  final String uid;
+  final bool admin;
+  User({this.uid, this.admin});
+}
+```
+
+Many of these classes in `models` include data transformation. To obtain data from or store data into Firebase, we need a way to convert data inside the class to Firebase readable data.
+
+```dart
+factory GlobalSummaryModel.fromJson(Map<String, dynamic> json) {
+    return GlobalSummaryModel(
+      json["Global"]["NewConfirmed"],
+      json["Global"]["TotalConfirmed"],
+      json["Global"]["NewDeaths"],
+      json["Global"]["TotalDeaths"],
+      json["Global"]["NewRecovered"],
+      json["Global"]["TotalRecovered"],
+      DateTime.parse(json["Date"]),
+    );
+  }
+```
+
+### Provider
+[Provider](https://github.com/rrousselGit/provider) is a powerful state management tool for Flutter. 
+> Flutter is declarative. This means that Flutter builds its user interface to reflect the current state of your app.
+> A provider is a wrapper around [InheritedWidget](https://api.flutter.dev/flutter/widgets/InheritedWidget-class.html) to make them easier to use and more reusable.
+
+```dart
+Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        StreamProvider(create: (context) => AuthenticateService().user),
+        ChangeNotifierProvider(create: (context) => CovidTestProvider()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Covid Demo',
+        home: Wrapper(),
+      ),
+    );
+  }
+```
+
+Inherited widgets deeply down the widget tree can easily use the data inside providers simultaneously with the help of `provider` package. In our case, each page can have access to the authenticate status and show different pages based on if the user is authenticated or not. It also separate a user login and an administrator login.
 
 
 
