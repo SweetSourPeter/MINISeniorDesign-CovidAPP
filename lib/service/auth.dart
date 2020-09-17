@@ -50,8 +50,9 @@ class AuthService {
     return ref.setData({
       'uid': user.uid,
       'email': user.email,
-      'displayName': user.displayName,
-      'lastSenn': DateTime.now()
+      'name': user.displayName,
+      'lastSenn': DateTime.now(),
+      'admin': false,
     }, merge: true);
   }
 
