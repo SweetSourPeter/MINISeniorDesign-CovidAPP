@@ -57,90 +57,93 @@ class _LoginState extends State<Login> {
                 padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
                 child: Form(
                   key: _formKey,
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      TextFormField(
-                        decoration:
-                            textInputDecoration.copyWith(hintText: 'Email'),
-                        validator: (val) =>
-                            val.isEmpty ? 'Enter an Email' : null,
-                        onChanged: (val) {
-                          setState(() {
-                            email = val;
-                          });
-                        },
-                      ),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      TextFormField(
-                        decoration:
-                            textInputDecoration.copyWith(hintText: 'Password'),
-                        obscureText: true,
-                        validator: (val) =>
-                            val.length < 4 ? 'Enter a Longer Password!' : null,
-                        onChanged: (val) {
-                          setState(() {
-                            password = val;
-                          });
-                        },
-                      ),
-                      SizedBox(height: 25.0),
-                      // SignInButton(
-                      //   Buttons.Email,
-                      //   text: "Sign in with Email",
-                      //   onPressed: ()
-                      //   },
-                      // ),
-                      RaisedButton(
-                        color: Colors.grey,
-                        child: Text(
-                          'Sign Up',
-                          style: TextStyle(color: Colors.white),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: 20.0,
                         ),
-                        onPressed: () async {
-                          if (_formKey.currentState.validate()) {
+                        TextFormField(
+                          decoration:
+                              textInputDecoration.copyWith(hintText: 'Email'),
+                          validator: (val) =>
+                              val.isEmpty ? 'Enter an Email' : null,
+                          onChanged: (val) {
                             setState(() {
-                              isLoading = true;
+                              email = val;
                             });
-                            dynamic result =
-                                await _authservice.login(email, password);
-                            if (result == null) {
+                          },
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        TextFormField(
+                          decoration: textInputDecoration.copyWith(
+                              hintText: 'Password'),
+                          obscureText: true,
+                          validator: (val) => val.length < 4
+                              ? 'Enter a Longer Password!'
+                              : null,
+                          onChanged: (val) {
+                            setState(() {
+                              password = val;
+                            });
+                          },
+                        ),
+                        SizedBox(height: 25.0),
+                        // SignInButton(
+                        //   Buttons.Email,
+                        //   text: "Sign in with Email",
+                        //   onPressed: ()
+                        //   },
+                        // ),
+                        RaisedButton(
+                          color: Colors.grey,
+                          child: Text(
+                            'Sign Up',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: () async {
+                            if (_formKey.currentState.validate()) {
                               setState(() {
-                                error = 'Incorrect Email or Password';
-                                isLoading = false;
+                                isLoading = true;
                               });
+                              dynamic result =
+                                  await _authservice.login(email, password);
+                              if (result == null) {
+                                setState(() {
+                                  error = 'Incorrect Email or Password';
+                                  isLoading = false;
+                                });
+                              }
                             }
-                          }
-                        },
-                      ),
-                      SizedBox(height: 45.0),
-                      Text(
-                        error,
-                        style: TextStyle(color: Colors.red, fontSize: 14.0),
-                      ),
-                      SignInButton(
-                        Buttons.Google,
-                        text: "Sign in with Google",
-                        onPressed: () {
-                          authService.googleSignIn();
-                        },
-                      ),
-                      Text(
-                        error,
-                        style: TextStyle(color: Colors.red, fontSize: 14.0),
-                      ),
-                      SignInButton(
-                        Buttons.Facebook,
-                        text: "Sign in with Facebook",
-                        onPressed: () {
-                          authService.googleSignIn();
-                        },
-                      ),
-                    ],
+                          },
+                        ),
+                        SizedBox(height: 45.0),
+                        Text(
+                          error,
+                          style: TextStyle(color: Colors.red, fontSize: 14.0),
+                        ),
+                        SignInButton(
+                          Buttons.Google,
+                          text: "Sign in with Google",
+                          onPressed: () {
+                            authService.googleSignIn();
+                          },
+                        ),
+                        Text(
+                          error,
+                          style: TextStyle(color: Colors.red, fontSize: 14.0),
+                        ),
+                        SignInButton(
+                          Buttons.Facebook,
+                          text: "Sign in with Facebook",
+                          onPressed: () {
+                            authService.googleSignIn();
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 )),
           );
