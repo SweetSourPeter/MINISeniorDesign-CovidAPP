@@ -100,7 +100,7 @@ class _LoginState extends State<Login> {
                         RaisedButton(
                           color: Colors.grey,
                           child: Text(
-                            'Sign Up',
+                            'Sign In',
                             style: TextStyle(color: Colors.white),
                           ),
                           onPressed: () async {
