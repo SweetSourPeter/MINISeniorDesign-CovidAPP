@@ -107,11 +107,30 @@ Besides, students can schedule for a COVID test if they think it's necessary:
 
 ![Register Test](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/ct.gif)
 
+Notice that when you are inside this page, you will be asked to provide your Google account information. This is because we have GoogleFit fully integrated in our app (via [`flutter health package`](https://pub.dev/packages/health))! Currently, we don't have any data yet, but the database of GoogleFit is connected to our app with a return value of `null` for now.
+
+![Register Test](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/hk1.gif)
+
+```dart
+  Future.delayed(Duration(seconds: 2), () async {
+      _isAuthorized = await FlutterHealth.requestAuthorization();
+      if (_isAuthorized)
+        _gfDataList
+            .addAll(await FlutterHealth.getGFAllData(startDate, endDate));
+      setState(() {});
+
+      if (_isAuthorized)
+        _hkDataList.addAll(
+            await FlutterHealth.getHKBodyTemperature(startDate, endDate));
+      setState(() {});
+    });
+```
+
 ### Admin Dashboard
 We support an admin dashboard to monitor scheduled tests, students status, and more.
 Currently, a user can only be authenticated to be an administrator by changing the user data `bool admin` from our Firebase back-end, that is, all users has a `false` value of `admin` by default. 
 
-Want to learn Flutter with Firebase? We've found [this tutorial](https://www.youtube.com/watch?v=sfA3NWDBPZ4&list=PL4cUxeGkcC9j--TKIdkb3ISfRbJeJYQwC) on YouTube useful for beginners.
+Want to learn Flutter with Firebase from scratch? We've found [this tutorial](https://www.youtube.com/watch?v=sfA3NWDBPZ4&list=PL4cUxeGkcC9j--TKIdkb3ISfRbJeJYQwC) on YouTube useful for beginners.
 
 ![Admin Dashboard](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/asd.gif)
 
