@@ -148,7 +148,7 @@ Notice that when you are inside this page, you will be asked to provide your Goo
 We support an admin dashboard to monitor scheduled tests, students status, and more.
 Currently, a user can only be authenticated to be an administrator by changing the user data `bool admin` from our Firebase back-end, that is, all users has a `false` value of `admin` by default. 
 
-![Firebase Backend](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/fb.png)
+![Firebase Backend](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/fs.png)
 
 Want to learn Flutter with Firebase from scratch? We've found [this tutorial](https://www.youtube.com/watch?v=sfA3NWDBPZ4&list=PL4cUxeGkcC9j--TKIdkb3ISfRbJeJYQwC) on YouTube useful for beginners.
 
