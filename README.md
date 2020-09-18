@@ -107,7 +107,7 @@ Besides, students can schedule for a COVID test if they think it's necessary:
 
 ![Register Test](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/ct.gif)
 
-Notice that when you are inside this page, you will be asked to provide your Google account information. This is because we have GoogleFit fully integrated in our app (via [`flutter health package`](https://pub.dev/packages/health))! Currently, we don't have any data yet, but the database of GoogleFit is connected to our app with a return value of `null` for now.
+Notice that when you are inside this page, you will be asked to provide your Google account information. This is because we have **GoogleFit** fully integrated in our app (via [`flutter health package`](https://pub.dev/packages/health))! Currently, we don't have any data yet, but the database of GoogleFit is connected to our app with a return value of `null` for now.
 
 ![Register Test](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/hk1.gif)
 
