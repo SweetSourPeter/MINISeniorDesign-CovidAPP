@@ -9,6 +9,23 @@ And here's why you might want to use it:
 * You are a school administrator and want to monitor students daily status.
 * You are a Flutter engineer and you want to see the difference between your team and the best Flutter team in the world.
 
+
+## Agile Development
+
+### Sprints
+
+Following are the 3 main sprints we went through:
+1. App basic structure setup. 
+We divided our work into two: The sign-in page and the user `MainMenu`. This would include basic functions such as Email sign-up/sign-in, user main dashboard to view COVID-19 cases. This work is done in the first three days after the project assigned. 
+2. Additional functions into the app. 
+In the login page, we added a google sign-in option and two providers for user state management. Whereas for the main user page, we added test registration and daily symptom reports both connected to firebase. We spend two days testing these features as well as moving on to the next stage.
+3. Finalize the app. 
+[Hanming](https://github.com/labmem008) starts to sums up the entire projects by writing a comprehensible Readme. [Peter](https://github.com/SweetSourPeter) keeps on working the user/admin dashboard with additional functions such as `health kit`, `qr_code` generator/scanner, user’s own submitted reports review, and admin test/reports review.
+
+### Team work division
+User/admin login, sign-up, README.md by [Hanming](https://github.com/labmem008).
+User main page, admin main page, additional functions, provider design by [Peter](https://github.com/SweetSourPeter).
+
 ## App Structure
 The following picture shows the widget tree.
 ![COVID-App Widget Tree](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/structure.png)
@@ -95,8 +112,8 @@ We support totally 3 major sign-in methods including by pure email/password or b
 
 ![Google Sign-in](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/gog.gif)
 
-### User Main Page
-Our main page contains three sub-pages, including a sideway panel, a world-wide COVID data, and a COVID data page in your own country. It is set to your current location but you can change your location if you wish.
+### User Main Page (with outside COVID data source!)
+Our main page contains three sub-pages, including a sideway panel, a world-wide COVID data, and a COVID data page in your own country. It is set to your current location but you can change your location if you wish. The data came from [https://api.covid19api.com/summary]("https://api.covid19api.com/summary"). See `lib/service/covid19APIService.dart` in case you wonder how we implement it.
 
 ![User Main Page](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/mu.gif)
 
@@ -137,6 +154,6 @@ Want to learn Flutter with Firebase from scratch? We've found [this tutorial](ht
 
 ## Authors
 
-Made by [@Peter](https://github.com/SweetSourPeter) and [@Hanming](https://github.com/labmem008) who are in turn powered by :fries:, :hamburger: and :cake:.
+Made by [@Yaopu, aka Peter](https://github.com/SweetSourPeter) and [@Hanming](https://github.com/labmem008) who are in turn powered by :fries:, :hamburger: and :cake:.
 See our official website [North America Classmate Connect](https://www.na-cc.com/).
 We are open to new members!
