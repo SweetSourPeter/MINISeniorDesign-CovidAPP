@@ -113,7 +113,7 @@ We support totally 3 major sign-in methods including by pure email/password or b
 ![Google Sign-in](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/gog.gif)
 
 ### User Main Page (with outside COVID data source!)
-Our main page contains three sub-pages, including a sideway panel, a world-wide COVID data, and a COVID data page in your own country. It is set to your current location but you can change your location if you wish. The data came from [https://api.covid19api.com/summary]("https://api.covid19api.com/summary"). See `lib/service/covid19APIService.dart` in case you wonder how we implement it.
+Our main page contains three sub-pages, including a sideway panel, a world-wide COVID data, and a COVID data page in your own country. It is set to your current location but you can change your location if you wish. The data came from [https://api.covid19api.com/summary](https://api.covid19api.com/summary). See `lib/service/covid19APIService.dart` in case you wonder how we implement it.
 
 ![User Main Page](https://github.com/SweetSourPeter/MINISeniorDesign-CovidAPP/blob/master/lib/mdimg/mu.gif)
 
