@@ -4,7 +4,7 @@ COVID-App is a tiny cross-platform mobile app developed using [Flutter](https://
 
 And here's why you might want to use it:
 
-* You want to know what the latest COVID data in your country.
+* You want to keep an eye on the latest COVID data in your country.
 * You want to help slow down this pandemic by self-reporting your symptoms.
 * You are a Flutter engineer and you want to see the difference between your team and the best Flutter team in the world.
 
